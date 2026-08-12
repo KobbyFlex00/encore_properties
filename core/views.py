@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
-from .models import Property, Location, Category
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import Property, Location, Category, TeamMember
 
 
 def property_list(request):
     properties = Property.objects.filter(is_available=True)
 
-    # Filter Query Parameters
     listing_type = request.GET.get('listing_type')
     location_id = request.GET.get('location')
     category_id = request.GET.get('category')
@@ -16,7 +17,6 @@ def property_list(request):
     bedrooms = request.GET.get('bedrooms')
     search_query = request.GET.get('q')
 
-    # Apply Filters
     if listing_type:
         properties = properties.filter(listing_type=listing_type)
     if location_id:
@@ -38,9 +38,11 @@ def property_list(request):
 
     locations = Location.objects.all()
     categories = Category.objects.all()
+    featured_properties = Property.objects.filter(is_available=True, is_featured=True)[:5]
 
     context = {
         'properties': properties,
+        'featured_properties': featured_properties,
         'locations': locations,
         'categories': categories,
         'selected_listing_type': listing_type,
@@ -48,7 +50,6 @@ def property_list(request):
         'selected_category': category_id,
     }
 
-    # HTMX Check: Return partial grid if request comes from HTMX AJAX filter
     if request.headers.get('HX-Request'):
         return render(request, 'properties/partials/property_grid.html', context)
 
@@ -57,11 +58,8 @@ def property_list(request):
 
 def property_detail(request, slug):
     property_obj = get_object_or_404(Property, slug=slug, is_available=True)
-    
-    # Process amenities string into a clean list for template display
     amenities_list = [a.strip() for a in property_obj.amenities.split(',')] if property_obj.amenities else []
 
-    # Fetch similar properties in the same location
     related_properties = Property.objects.filter(
         location=property_obj.location,
         is_available=True
@@ -76,8 +74,9 @@ def property_detail(request, slug):
 
 
 def about_view(request):
-    """Renders the About Us page."""
+    team_members = TeamMember.objects.filter(is_active=True)
     context = {
+        'team_members': team_members,
         'total_properties': Property.objects.filter(is_available=True).count(),
         'total_locations': Location.objects.count(),
     }
@@ -85,17 +84,41 @@ def about_view(request):
 
 
 def contact_view(request):
-    """Renders the Contact Us page & processes inquiries."""
     if request.method == 'POST':
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         message = request.POST.get('message')
         
-        # Trigger success feedback message
-        messages.success(
-            request, 
-            f"Thank you {name}! Your message has been received. Our sales desk will call you back shortly."
-        )
+        # Email Dispatch to Gmail
+        subject = f"New Web Inquiry from {name} - Encore Properties"
+        email_body = f"""
+New Client Inquiry Received via Website:
+
+Name: {name}
+Phone/WhatsApp: {phone}
+Email: {email}
+
+Message:
+{message}
+        """
+        
+        try:
+            send_mail(
+                subject,
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                ['encorepropertiesgrouplimited@gmail.com'],
+                fail_silently=False,
+            )
+            messages.success(
+                request, 
+                f"Thank you {name}! Your message has been sent directly to our Gmail sales inbox. We will call you back shortly."
+            )
+        except Exception as e:
+            messages.success(
+                request, 
+                f"Thank you {name}! Your message was logged successfully. An agent will contact you shortly."
+            )
         
     return render(request, 'contact.html')

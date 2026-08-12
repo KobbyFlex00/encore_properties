@@ -97,7 +97,6 @@ class Property(models.Model):
         return f"https://wa.me/{phone}?text={urllib.parse.quote(msg)}"
 
     def get_thumbnail_url(self):
-        """Returns main image URL or auto-generated YouTube thumbnail."""
         if self.main_image:
             return self.main_image.url
         
@@ -113,10 +112,7 @@ class Property(models.Model):
         return None
 
     def get_social_platform_info(self):
-        """Parses URLs into live embeddable URLs."""
         url = self.social_media_url or ""
-        
-        # Instagram Embed Handler
         if "instagram.com" in url:
             match = re.search(r'instagram\.com/(?:p|reel|tv)/([^/?#&]+)', url)
             post_id = match.group(1) if match else ""
@@ -128,8 +124,6 @@ class Property(models.Model):
                 "icon": "fa-brands fa-instagram", 
                 "color": "from-purple-600 via-pink-500 to-amber-500"
             }
-        
-        # YouTube Embed Handler
         elif "youtube.com" in url or "youtu.be" in url:
             video_id = ""
             if "youtu.be" in url:
@@ -144,7 +138,6 @@ class Property(models.Model):
                 "icon": "fa-brands fa-youtube", 
                 "color": "bg-red-600"
             }
-            
         elif "tiktok.com" in url:
             return {"platform": "tiktok", "url": url, "is_embeddable": False, "icon": "fa-brands fa-tiktok", "color": "bg-black"}
         elif "facebook.com" in url:
@@ -167,3 +160,20 @@ class PropertyImage(models.Model):
 
     def __str__(self):
         return f"Gallery Image for {self.property.title}"
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=150)
+    role = models.CharField(max_length=150, help_text="e.g. Chief Executive Officer, Senior Realtor")
+    image = CloudinaryField('image', blank=True, null=True)
+    bio = models.TextField(help_text="Brief professional background description")
+    phone = models.CharField(max_length=50, blank=True, help_text="Direct phone line")
+    email = models.EmailField(blank=True)
+    order = models.IntegerField(default=0, help_text="Display priority (lowest first)")
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order', 'name']
+
+    def __str__(self):
+        return f"{self.name} - {self.role}"

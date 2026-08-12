@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Location, Category, Property, PropertyImage
+from .models import Location, Category, Property, PropertyImage, TeamMember
 
 
 class PropertyImageInline(admin.TabularInline):
@@ -26,3 +26,10 @@ class LocationAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'role', 'phone', 'email', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
+    search_fields = ('name', 'role', 'bio')

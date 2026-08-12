@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}About Us | Encore Property Group Ltd{% endblock %}
+{% block title %}About & Team | Encore Property Group Ltd{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -11,23 +11,23 @@
             About <span class="text-brand-gold">Encore Property Group</span>
         </h1>
         <p class="text-xs md:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Your trusted real estate agency in Ghana specializing in luxury homes, executive apartments, short-stay accommodations, and verified land sales.
+            Certified real estate agency in Ghana specializing in luxury homes, executive apartments, short-stay accommodations, and verified land sales.
         </p>
     </div>
 </section>
 
-<!-- Main Brand Story & Stats -->
+<!-- Main Brand Story & Accreditation -->
 <section class="max-w-7xl mx-auto px-4 py-16 space-y-16">
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <!-- Brand Values Box -->
         <div class="space-y-6">
-            <span class="text-brand-green font-bold text-xs uppercase tracking-wider block">Our Mission</span>
+            <span class="text-brand-green font-bold text-xs uppercase tracking-wider block">Corporate Background</span>
             <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">
-                Connecting Buyers, Tenants, & Investors with Premier Real Estate
+                Fully Registered & Certified Real Estate Company
             </h2>
             <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-                At Encore Property Group Ltd, we simplify the property acquisition journey in Ghana. Whether you are looking for an executive 4-bedroom house in East Legon, a serene apartment in Cantonments, or prime commercial land, our team provides transparent guidance and verified listings.
+                Encore Property Group Ltd was officially incorporated under the Companies Act, 2019 (Act 992) on October 27, 2021 (Reg No. CS214391021 | TIN: C0061330159). We are proud members of the <strong>Ghana Real Estate Professionals Association (GREPA)</strong> and certified by the <strong>National Association of REALTORS® (NAR)</strong>.
             </p>
             
             <div class="grid grid-cols-2 gap-4 pt-4 border-t border-brand-border">
@@ -42,54 +42,95 @@
             </div>
         </div>
 
-        <!-- Service Cards -->
+        <!-- Accreditation Cards -->
         <div class="space-y-4">
             <div class="bg-brand-card p-6 rounded-2xl border border-brand-border flex items-start space-x-4">
-                <div class="w-12 h-12 bg-black rounded-xl border border-brand-border flex items-center justify-center text-brand-green text-xl flex-shrink-0">
-                    <i class="fa-solid fa-house-chimney"></i>
+                <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-xl border border-red-500/30 flex items-center justify-center font-black text-xs flex-shrink-0">
+                    GREPA
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-1">Residential & Commercial Sales</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Luxury mansions, townhouses, and verified development land across Greater Accra and beyond.</p>
+                    <h3 class="text-sm font-bold text-white mb-1">GREPA Certified Member</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Official member of the Ghana Real Estate Professionals Association enforcing high ethical standards.</p>
                 </div>
             </div>
 
             <div class="bg-brand-card p-6 rounded-2xl border border-brand-border flex items-start space-x-4">
-                <div class="w-12 h-12 bg-black rounded-xl border border-brand-border flex items-center justify-center text-brand-gold text-xl flex-shrink-0">
-                    <i class="fa-solid fa-key"></i>
+                <div class="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-xl border border-blue-500/30 flex items-center justify-center font-black text-xs flex-shrink-0">
+                    NAR
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-1">Exec Lettings & Short Stays</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Fully furnished apartments and holiday rentals with 24/7 security and fitted amenities.</p>
+                    <h3 class="text-sm font-bold text-white mb-1">National Association of REALTORS®</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">International REALTOR® designation adhering to globally recognized real estate practices.</p>
                 </div>
             </div>
 
             <div class="bg-brand-card p-6 rounded-2xl border border-brand-border flex items-start space-x-4">
-                <div class="w-12 h-12 bg-black rounded-xl border border-brand-border flex items-center justify-center text-brand-green text-xl flex-shrink-0">
-                    <i class="fa-solid fa-camera-retro"></i>
+                <div class="w-12 h-12 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center text-brand-gold text-xl flex-shrink-0">
+                    <i class="fa-solid fa-file-contract"></i>
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-white mb-1">Digital Video Walkthroughs</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">High-definition video tours across TikTok, Instagram, and YouTube so overseas clients can inspect properties remotely.</p>
+                    <h3 class="text-sm font-bold text-white mb-1">Incorporated Company</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">Registered under the Registrar of Companies in Accra, Ghana. Reg No: CS214391021.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Direct CTA Banner -->
-    <div class="bg-gradient-to-r from-brand-card to-black p-8 md:p-12 rounded-3xl border border-brand-border text-center space-y-6">
-        <h2 class="text-2xl md:text-3xl font-black text-white">Ready to Find Your Next Property?</h2>
-        <p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto">Get in touch with our active sales desk today to schedule physical viewings or inquire about new developments.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20inquire%20about%20your%20services." 
-               target="_blank" 
-               class="bg-brand-green hover:bg-emerald-400 text-black font-extrabold text-xs px-6 py-3 rounded-xl transition flex items-center shadow-lg shadow-brand-green/20">
-                <i class="fa-brands fa-whatsapp text-lg mr-2"></i> WhatsApp Sales Desk
-            </a>
-            <a href="tel:+233244057147" class="bg-brand-dark hover:bg-slate-800 text-slate-200 font-bold text-xs px-6 py-3 rounded-xl border border-brand-border transition flex items-center">
-                <i class="fa-solid fa-phone text-brand-gold mr-2"></i> Call 024 405 7147
-            </a>
+    <!-- MEET THE TEAM SECTION -->
+    <div class="border-t border-brand-border pt-12 space-y-8">
+        <div class="text-center max-w-xl mx-auto">
+            <span class="text-brand-green font-bold text-xs uppercase tracking-wider block mb-1">Leadership & Agents</span>
+            <h2 class="text-2xl md:text-3xl font-black text-white">Meet Our Team</h2>
+            <p class="text-xs text-slate-400 mt-2">Dedicated professionals committed to delivering exceptional property solutions.</p>
         </div>
+
+        {% if team_members %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for member in team_members %}
+            <div class="bg-brand-card rounded-2xl border border-brand-border overflow-hidden shadow-xl flex flex-col justify-between">
+                <div class="relative aspect-square bg-slate-900 overflow-hidden">
+                    {% if member.image %}
+                        <img src="{{ member.image.url }}" alt="{{ member.name }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <div class="w-full h-full flex flex-col items-center justify-center text-slate-700 bg-slate-900">
+                            <i class="fa-solid fa-user-tie text-5xl mb-2 text-slate-800"></i>
+                            <span class="text-[10px] uppercase font-bold text-slate-600">Encore Realtor</span>
+                        </div>
+                    {% endif %}
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4">
+                        <span class="text-[10px] font-bold text-brand-green uppercase tracking-wider block">{{ member.role }}</span>
+                        <h3 class="text-lg font-black text-white">{{ member.name }}</h3>
+                    </div>
+                </div>
+                
+                <div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        {{ member.bio }}
+                    </p>
+                    
+                    <div class="pt-3 border-t border-brand-border space-y-2">
+                        {% if member.phone %}
+                        <a href="tel:{{ member.phone }}" class="text-xs font-bold text-brand-gold hover:text-white transition block">
+                            <i class="fa-solid fa-phone mr-2"></i> {{ member.phone }}
+                        </a>
+                        {% endif %}
+                        {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="text-xs font-bold text-slate-400 hover:text-brand-green transition block">
+                            <i class="fa-solid fa-envelope mr-2"></i> {{ member.email }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-brand-card p-8 text-center rounded-2xl border border-brand-border max-w-md mx-auto">
+            <i class="fa-solid fa-users text-3xl text-brand-gold mb-2"></i>
+            <h3 class="text-sm font-bold text-white">Team Profiles Updating</h3>
+            <p class="text-xs text-slate-400 mt-1">Upload team member photos and bios in the Django Admin to feature them here.</p>
+        </div>
+        {% endif %}
     </div>
 
 </section>
