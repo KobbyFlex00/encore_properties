@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | Encore Property Group Ltd{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-black py-16 border-b border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="text-brand-green font-mono font-bold text-xs uppercase tracking-widest block mb-2">Get In Touch</span>
+        <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+            Contact <span class="text-brand-gold">Our Sales Desk</span>
+        </h1>
+        <p class="text-xs md:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Have questions about a property or want to list your real estate with us? Reach out directly to our team in Accra.
+        </p>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-16">
+    
+    <!-- Success Feedback Alert -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="bg-brand-green/10 border border-brand-green text-brand-green px-6 py-4 rounded-2xl mb-8 text-xs font-bold flex items-center space-x-3">
+            <i class="fa-solid fa-circle-check text-lg"></i>
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        
+        <!-- Left: Direct Contact Information Cards -->
+        <div class="space-y-6">
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-2">
+                <span class="text-[10px] font-bold text-brand-green uppercase tracking-wider block">Official Phone Lines</span>
+                <p class="text-sm font-bold text-white flex items-center"><i class="fa-solid fa-phone text-brand-gold mr-2 text-xs"></i> 024 405 7147</p>
+                <p class="text-sm font-bold text-white flex items-center"><i class="fa-solid fa-phone text-brand-gold mr-2 text-xs"></i> 059 918 7441</p>
+                <p class="text-sm font-bold text-white flex items-center"><i class="fa-solid fa-phone text-brand-gold mr-2 text-xs"></i> 059 887 0757</p>
+            </div>
+
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-2">
+                <span class="text-[10px] font-bold text-brand-green uppercase tracking-wider block">Email Address</span>
+                <p class="text-xs font-bold text-white flex items-center"><i class="fa-solid fa-envelope text-brand-gold mr-2"></i> encorepropertiesgrouplimited@gmail.com</p>
+            </div>
+
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-2">
+                <span class="text-[10px] font-bold text-brand-green uppercase tracking-wider block">Office Location</span>
+                <p class="text-xs font-bold text-white flex items-center"><i class="fa-solid fa-location-dot text-brand-green mr-2"></i> Accra, Greater Accra Region, Ghana</p>
+            </div>
+
+            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border">
+                <span class="text-[10px] font-bold text-brand-green uppercase tracking-wider block mb-3">Connect on Social Media</span>
+                <div class="flex items-center space-x-3 text-lg text-slate-300">
+                    <a href="https://www.facebook.com/profile.php?id=100083054480577" target="_blank" class="w-10 h-10 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center hover:text-brand-green hover:border-brand-green transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/encorepropertieslimited" target="_blank" class="w-10 h-10 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center hover:text-brand-green hover:border-brand-green transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@encorepropertygroupltd" target="_blank" class="w-10 h-10 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center hover:text-brand-green hover:border-brand-green transition"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://youtube.com/@encorepropertiesltd" target="_blank" class="w-10 h-10 bg-brand-dark rounded-xl border border-brand-border flex items-center justify-center hover:text-brand-green hover:border-brand-green transition"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Inquiry Form -->
+        <div class="lg:col-span-2 bg-brand-card p-8 rounded-3xl border border-brand-border shadow-2xl">
+            <h2 class="text-xl font-bold text-white mb-2">Send Us a Direct Message</h2>
+            <p class="text-xs text-slate-400 mb-6">Fill out the form below and an agent will follow up with you immediately.</p>
+
+            <form method="POST" action="{% url 'core:contact' %}" class="space-y-4">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Your Full Name</label>
+                        <input type="text" name="name" required placeholder="e.g. Kwame Mensah" 
+                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-xl p-3 focus:border-brand-green focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Phone Number / WhatsApp</label>
+                        <input type="text" name="phone" required placeholder="e.g. 0244000000" 
+                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-xl p-3 focus:border-brand-green focus:outline-none transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email Address</label>
+                    <input type="email" name="email" placeholder="e.g. kwame@example.com" 
+                           class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-xl p-3 focus:border-brand-green focus:outline-none transition">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Your Message / Inquiry</label>
+                    <textarea name="message" rows="5" required placeholder="Describe the property type or location you are interested in..." 
+                              class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-xl p-3 focus:border-brand-green focus:outline-none transition"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-green hover:bg-emerald-400 text-black font-extrabold text-xs py-3.5 rounded-xl transition shadow-lg shadow-brand-green/20">
+                    Submit Message to Agent
+                </button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

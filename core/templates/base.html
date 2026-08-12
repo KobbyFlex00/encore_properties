@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Encore Property Group Ltd | Luxury Properties in Ghana{% endblock %}</title>
+
+    <!-- OpenGraph Social Meta Tags -->
+    {% block opengraph %}
+    <meta property="og:title" content="Encore Property Group Ltd - Luxury Properties in Ghana">
+    <meta property="og:description" content="Discover premium apartments, executive homes, short stays, and land for sale across Accra and Ghana.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    {% endblock %}
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#00E676',   /* Electric Neon Green */
+                            gold: '#D4AF37',    /* Metallic Gold */
+                            dark: '#0A0A0A',    /* Pitch Black */
+                            card: '#171717',    /* Deep Charcoal */
+                            border: '#262626',  /* Dark Border */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- HTMX CDN -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <!-- Alpine.js CDN -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-brand-dark text-slate-200 font-sans flex flex-col min-h-screen pb-16 md:pb-0">
+
+    <!-- Top Contact Bar (Desktop) -->
+    <div class="bg-black text-slate-300 text-xs py-2.5 px-4 hidden md:block border-b border-brand-border">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <span><i class="fa-solid fa-phone text-brand-green mr-2"></i>024 405 7147 / 059 918 7441 / 059 887 0757</span>
+                <span><i class="fa-solid fa-envelope text-brand-gold mr-2"></i>encorepropertiesgrouplimited@gmail.com</span>
+                <span><i class="fa-solid fa-location-dot text-brand-green mr-2"></i>Accra, Ghana</span>
+            </div>
+            <!-- Social Icons -->
+            <div class="flex items-center space-x-4 text-sm">
+                <a href="https://www.facebook.com/profile.php?id=100083054480577" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/encorepropertieslimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://linktr.ee/encorepropertiesgrouplimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@encorepropertygroupltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://youtube.com/@encorepropertiesltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://snapchat.com" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-snapchat"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-brand-dark/95 backdrop-blur-md sticky top-0 z-40 border-b border-brand-border shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            
+            <!-- Brand Logo -->
+            <a href="{% url 'core:property_list' %}" class="flex items-center space-x-3 group">
+                <div class="relative w-9 h-9 flex items-center justify-center">
+                    <div class="absolute -top-1 -left-1 w-5 h-5 border-t-2 border-l-2 border-brand-green"></div>
+                    <i class="fa-solid fa-house-chimney text-brand-gold text-xl group-hover:scale-105 transition-transform"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-wider text-brand-gold leading-none">ENCORE</span>
+                    <span class="text-[9px] font-bold text-slate-400 tracking-widest uppercase mt-0.5">Property Group Ltd</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="{% url 'core:property_list' %}" class="hover:text-brand-green transition">Home</a>
+                <a href="{% url 'core:about' %}" class="hover:text-brand-green transition">About Us</a>
+                <a href="{% url 'core:property_list' %}?listing_type=sale" class="hover:text-brand-green transition">For Sale</a>
+                <a href="{% url 'core:property_list' %}?listing_type=rent" class="hover:text-brand-green transition">For Rent</a>
+                <a href="{% url 'core:property_list' %}?listing_type=short_stay" class="hover:text-brand-green transition">Short Stay</a>
+                <a href="{% url 'core:contact' %}" class="hover:text-brand-green transition">Contact</a>
+            </nav>
+
+            <!-- Call-to-Action WhatsApp Button -->
+            <div class="hidden md:block">
+                <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" class="bg-brand-green hover:bg-emerald-400 text-black font-bold text-xs px-4 py-2.5 rounded-lg transition-all flex items-center shadow-lg shadow-brand-green/20">
+                    <i class="fa-brands fa-whatsapp text-sm mr-2 text-black"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Block -->
+    <main class="flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Sticky Mobile Bottom Contact Action Bar -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-brand-dark/95 backdrop-blur-lg border-t border-brand-border p-2 z-50 grid grid-cols-2 gap-2 shadow-2xl">
+        <a href="tel:+233244057147" class="bg-brand-card hover:bg-slate-800 text-white py-2.5 rounded-lg flex items-center justify-center font-bold text-xs border border-brand-border">
+            <i class="fa-solid fa-phone text-brand-gold mr-2"></i> Call Agent
+        </a>
+        <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" class="bg-brand-green hover:bg-emerald-400 text-black font-extrabold py-2.5 rounded-lg flex items-center justify-center text-xs shadow-lg shadow-brand-green/20">
+            <i class="fa-brands fa-whatsapp text-sm mr-2 text-black"></i> WhatsApp Us
+        </a>
+    </div>
+
+    <!-- Floating Circular Action Buttons (Bottom-Right) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3">
+        <!-- Floating WhatsApp Button -->
+        <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." 
+           target="_blank" 
+           title="Chat on WhatsApp"
+           class="w-12 h-12 md:w-14 md:h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+            <i class="fa-brands fa-whatsapp text-2xl md:text-3xl"></i>
+        </a>
+
+        <!-- Floating Call Button -->
+        <a href="tel:+233244057147" 
+           title="Call Agent"
+           class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold hover:bg-yellow-500 text-slate-950 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-phone text-xl md:text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-slate-400 py-10 border-t border-brand-border text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center space-x-2 mb-3">
+                <span class="text-base font-black text-brand-gold">ENCORE PROPERTY GROUP LTD</span>
+            </div>
+            <p class="text-slate-400 mb-4 max-w-md mx-auto">Delivering Exceptional Real Estate Solutions, Luxury Homes, and Land Investments Across Ghana.</p>
+            <p class="text-slate-500">&copy; 2026 Encore Property Group Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

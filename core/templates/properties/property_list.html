@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Encore Property Group Ltd | Find Luxury Real Estate in Ghana{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-black py-16 md:py-24 border-b border-brand-border overflow-hidden">
+    <!-- Ambient Green Glow Background Graphic -->
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+        <span class="inline-block bg-brand-dark border border-brand-green/30 text-brand-green font-mono font-bold text-[11px] uppercase tracking-widest px-3 py-1 rounded-full mb-4 shadow-lg">
+            <i class="fa-solid fa-circle text-[7px] mr-1.5 animate-pulse text-brand-green"></i> Live Listings Catalog
+        </span>
+        <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+            Find Your Dream Property in <span class="text-brand-gold">Ghana</span>
+        </h1>
+        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Browse luxury apartments, executive houses, short-stay rentals, and commercial land across Accra and premier Ghana locations.
+        </p>
+
+        <!-- HTMX Smart Filter Bar -->
+        <div class="bg-brand-card/90 backdrop-blur-xl p-4 md:p-6 rounded-2xl border border-brand-border shadow-2xl max-w-5xl mx-auto">
+            <form hx-get="{% url 'core:property_list' %}" 
+                  hx-target="#property-grid" 
+                  hx-trigger="change, keyup delay:300ms from:find input"
+                  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                
+                <!-- Keyword Input -->
+                <div class="lg:col-span-2">
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-left">Search Keyword</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
+                        <input type="text" name="q" placeholder="Title, ref code (e.g. EP-101)..." 
+                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg pl-9 pr-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                    </div>
+                </div>
+
+                <!-- Listing Type Filter -->
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-left">Listing Type</label>
+                    <select name="listing_type" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                        <option value="">All Types</option>
+                        <option value="sale" {% if selected_listing_type == 'sale' %}selected{% endif %}>For Sale</option>
+                        <option value="rent" {% if selected_listing_type == 'rent' %}selected{% endif %}>For Rent</option>
+                        <option value="short_stay" {% if selected_listing_type == 'short_stay' %}selected{% endif %}>Short Stay</option>
+                        <option value="land" {% if selected_listing_type == 'land' %}selected{% endif %}>Land / Plot</option>
+                    </select>
+                </div>
+
+                <!-- Location Filter -->
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-left">Location</label>
+                    <select name="location" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                        <option value="">All Locations</option>
+                        {% for loc in locations %}
+                            <option value="{{ loc.id }}" {% if selected_location == loc.id|stringformat:"s" %}selected{% endif %}>{{ loc.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Category Filter -->
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-left">Category</label>
+                    <select name="category" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Property Grid Display Container -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-bold text-white tracking-tight">
+            Available <span class="text-brand-green">Properties</span>
+        </h2>
+        <span class="text-xs text-slate-500 font-mono">Updated Live</span>
+    </div>
+
+    <!-- HTMX Swaps Container -->
+    <div id="property-grid">
+        {% include "properties/partials/property_grid.html" %}
+    </div>
+</section>
+{% endblock %}
