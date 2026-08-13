@@ -8,16 +8,14 @@
 <meta property="og:description" content="{{ property.description|truncatewords:20 }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
-{% if property.get_thumbnail_url %}
-<meta property="og:image" content="{{ property.get_thumbnail_url }}">
-{% endif %}
+<meta property="og:image" content="{{ property.main_image.url }}">
 {% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-8" x-data="{ activeImage: '{% if property.main_image %}{{ property.main_image.url }}{% endif %}' }">
+<div class="max-w-7xl mx-auto px-4 py-8" x-data="{ activeImage: '{{ property.main_image.url }}' }">
     
     <!-- Breadcrumb Navigation -->
-    <div class="text-xs text-slate-400 mb-6 flex items-center space-x-2">
+    <div class="text-xs text-slate-500 dark:text-slate-400 mb-6 flex items-center space-x-2">
         <a href="{% url 'core:property_list' %}" class="hover:text-brand-green transition">Catalog</a>
         <span>/</span>
         <span class="text-slate-500">{{ property.location.name }}</span>
@@ -27,67 +25,34 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <!-- Left Column: Media Showcase & Property Details -->
+        <!-- Left Column: Media Showcase & Details -->
         <div class="lg:col-span-2 space-y-8">
             
-            <!-- Main Media Showcase Area -->
+            <!-- Main Hero Photo Area -->
             <div class="space-y-3">
-                
-                {% if property.main_image %}
-                    <!-- Image Viewer -->
-                    <div class="relative aspect-[16/10] bg-black rounded-2xl overflow-hidden border border-brand-border shadow-2xl flex items-center justify-center">
-                        <img :src="activeImage" alt="{{ property.title }}" class="w-full h-full object-cover transition-all duration-300">
-                        <div class="absolute top-4 left-4 z-10">
-                            <span class="bg-brand-green text-black font-extrabold text-xs uppercase px-3 py-1 rounded shadow-md">
-                                {{ property.get_listing_type_display }}
-                            </span>
-                        </div>
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="bg-black/80 text-brand-gold font-mono font-bold text-xs px-3 py-1 rounded border border-brand-gold/30">
-                                #{{ property.ref_code }}
-                            </span>
-                        </div>
+                <div class="relative aspect-[16/10] bg-black rounded-2xl overflow-hidden border border-slate-200 dark:border-brand-border shadow-2xl flex items-center justify-center">
+                    <img :src="activeImage" alt="{{ property.title }}" class="w-full h-full object-cover transition-all duration-300">
+                    
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-brand-green text-black font-extrabold text-xs uppercase px-3 py-1 rounded shadow-md">
+                            {{ property.get_listing_type_display }}
+                        </span>
                     </div>
-                {% endif %}
-
-                <!-- Live Embedded Social Video Player Section -->
-                {% if property.social_media_url %}
-                    {% with social=property.get_social_platform_info %}
-                    <div class="bg-brand-card p-6 rounded-2xl border border-brand-border shadow-xl">
-                        <h2 class="text-base font-bold text-white mb-4 flex items-center">
-                            <i class="{{ social.icon }} text-brand-green mr-2 text-lg"></i> {{ social.platform|title }} Video Walkthrough
-                        </h2>
-
-                        {% if social.is_embeddable %}
-                            <!-- Playing Embed Iframe -->
-                            <div class="relative w-full rounded-xl overflow-hidden bg-black border border-brand-border shadow-2xl flex justify-center items-center min-h-[450px]">
-                                <iframe src="{{ social.embed_url }}" class="w-full h-[500px] border-0" frameborder="0" allowfullscreen scrolling="no"></iframe>
-                            </div>
-                        {% else %}
-                            <!-- External Platform Callout -->
-                            <div class="bg-gradient-to-br {{ social.color }} p-8 rounded-xl text-white text-center shadow-2xl">
-                                <i class="{{ social.icon }} text-5xl mb-3"></i>
-                                <h3 class="text-lg font-black uppercase mb-1">Watch Official Video Tour</h3>
-                                <p class="text-xs text-white/90 max-w-md mx-auto mb-5">This property features an official video post on {{ social.platform|title }}. Click below to view the video.</p>
-                                <a href="{{ property.social_media_url }}" target="_blank" class="inline-flex items-center bg-white text-black font-extrabold text-xs px-6 py-3 rounded-xl shadow-xl hover:scale-105 transition">
-                                    Open Video on {{ social.platform|title }} <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
-                                </a>
-                            </div>
-                        {% endif %}
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="bg-black/80 text-brand-gold font-mono font-bold text-xs px-3 py-1 rounded border border-brand-gold/30">
+                            #{{ property.ref_code }}
+                        </span>
                     </div>
-                    {% endwith %}
-                {% endif %}
+                </div>
 
                 <!-- Gallery Thumbnails -->
                 {% if property.gallery.all %}
                 <div class="flex space-x-2 overflow-x-auto pb-2">
-                    {% if property.main_image %}
                     <button @click="activeImage = '{{ property.main_image.url }}'" 
                             class="w-20 h-14 rounded-lg overflow-hidden border-2 transition flex-shrink-0"
                             :class="activeImage === '{{ property.main_image.url }}' ? 'border-brand-green scale-95' : 'border-brand-border opacity-60'">
                         <img src="{{ property.main_image.url }}" class="w-full h-full object-cover">
                     </button>
-                    {% endif %}
                     {% for img in property.gallery.all %}
                     {% if img.image %}
                     <button @click="activeImage = '{{ img.image.url }}'" 
@@ -101,58 +66,77 @@
                 {% endif %}
             </div>
 
-            <!-- Title & Punctuated Price Banner -->
-            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border shadow-xl">
+            <!-- Direct Social Media Video Tour CTA Banner -->
+            {% with social=property.get_social_platform_info %}
+            <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl {{ social.color }} text-white flex items-center justify-center text-2xl flex-shrink-0 shadow-lg">
+                        <i class="{{ social.icon }}"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Watch Official Property Video</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">View live walkthrough footage on {{ social.platform }}.</p>
+                    </div>
+                </div>
+                <a href="{{ property.social_media_url }}" target="_blank" 
+                   class="{{ social.color }} text-white font-extrabold text-xs px-6 py-3 rounded-xl transition whitespace-nowrap flex items-center shadow-lg">
+                    Open Video on {{ social.platform }} <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                </a>
+            </div>
+            {% endwith %}
+
+            <!-- Title & Price Banner -->
+            <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-xl">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                     <div>
-                        <div class="text-xs text-brand-green font-semibold mb-1">
+                        <div class="text-xs text-amber-600 dark:text-brand-green font-semibold mb-1">
                             <i class="fa-solid fa-location-dot mr-1"></i> {{ property.location.name }}
                         </div>
-                        <h1 class="text-2xl md:text-3xl font-black text-white leading-tight">
+                        <h1 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">
                             {{ property.title }}
                         </h1>
                     </div>
-                    <div class="bg-brand-dark px-4 py-3 rounded-xl border border-brand-border">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Listing Price</span>
-                        <span class="text-2xl font-black text-brand-gold">
+                    <div class="bg-slate-100 dark:bg-brand-dark px-4 py-3 rounded-xl border border-slate-200 dark:border-brand-border">
+                        <span class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Listing Price</span>
+                        <span class="text-2xl font-black text-amber-600 dark:text-brand-gold">
                             {% if property.currency == 'USD' %}${% else %}GH₵{% endif %}{{ property.price|intcomma }}
                         </span>
                     </div>
                 </div>
 
                 <!-- Specs Grid -->
-                <div class="grid grid-cols-3 gap-3 py-4 border-t border-brand-border text-center text-xs text-slate-300">
-                    <div class="bg-brand-dark py-2.5 rounded-lg border border-brand-border">
-                        <i class="fa-solid fa-bed text-brand-gold mb-1 text-sm block"></i>
-                        <span class="font-bold text-white">{{ property.bedrooms }} Bedrooms</span>
+                <div class="grid grid-cols-3 gap-3 py-4 border-t border-slate-200 dark:border-brand-border text-center text-xs text-slate-700 dark:text-slate-300">
+                    <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
+                        <i class="fa-solid fa-bed text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <span class="font-bold">{{ property.bedrooms }} Bedrooms</span>
                     </div>
-                    <div class="bg-brand-dark py-2.5 rounded-lg border border-brand-border">
-                        <i class="fa-solid fa-bath text-brand-gold mb-1 text-sm block"></i>
-                        <span class="font-bold text-white">{{ property.bathrooms }} Bathrooms</span>
+                    <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
+                        <i class="fa-solid fa-bath text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <span class="font-bold">{{ property.bathrooms }} Bathrooms</span>
                     </div>
-                    <div class="bg-brand-dark py-2.5 rounded-lg border border-brand-border">
-                        <i class="fa-solid fa-ruler-combined text-brand-gold mb-1 text-sm block"></i>
-                        <span class="font-bold text-white">{% if property.square_meters %}{{ property.square_meters|intcomma }} m²{% else %}N/A{% endif %}</span>
+                    <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
+                        <i class="fa-solid fa-ruler-combined text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <span class="font-bold">{% if property.square_meters %}{{ property.square_meters|intcomma }} m²{% else %}N/A{% endif %}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Description & Amenities -->
-            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border space-y-6 shadow-xl">
+            <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border space-y-6 shadow-xl">
                 <div>
-                    <h2 class="text-base font-bold text-white mb-3">Property Description</h2>
-                    <p class="text-xs md:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+                    <h2 class="text-base font-bold text-slate-900 dark:text-white mb-3">Property Description</h2>
+                    <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                         {{ property.description }}
                     </p>
                 </div>
 
                 {% if amenities_list %}
-                <div class="border-t border-brand-border pt-6">
-                    <h2 class="text-base font-bold text-white mb-3">Features & Amenities</h2>
+                <div class="border-t border-slate-200 dark:border-brand-border pt-6">
+                    <h2 class="text-base font-bold text-slate-900 dark:text-white mb-3">Features & Amenities</h2>
                     <div class="flex flex-wrap gap-2">
                         {% for amenity in amenities_list %}
-                        <span class="bg-brand-dark text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-brand-border flex items-center">
-                            <i class="fa-solid fa-check text-brand-green mr-1.5 text-[10px]"></i> {{ amenity }}
+                        <span class="bg-slate-100 dark:bg-brand-dark text-slate-700 dark:text-slate-300 text-xs px-3 py-1.5 rounded-lg border border-slate-200 dark:border-brand-border flex items-center">
+                            <i class="fa-solid fa-check text-emerald-600 dark:text-brand-green mr-1.5 text-[10px]"></i> {{ amenity }}
                         </span>
                         {% endfor %}
                     </div>
@@ -162,35 +146,29 @@
 
         </div>
 
-        <!-- Right Column: Agent Inquiry Card -->
+        <!-- Right Column: Agent Desk & Call Lines -->
         <div class="space-y-6">
-            <div class="bg-brand-card p-6 rounded-2xl border border-brand-border sticky top-24 shadow-2xl space-y-6">
+            <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border sticky top-24 shadow-2xl space-y-6">
                 <div>
-                    <span class="text-[10px] text-brand-green font-mono font-bold uppercase tracking-wider block mb-1">Direct Agent Desk</span>
-                    <h3 class="text-lg font-bold text-white">Interested in this Property?</h3>
-                    <p class="text-xs text-slate-400 mt-1">Connect directly with our real estate sales team for physical viewings and negotiations.</p>
+                    <span class="text-[10px] text-amber-600 dark:text-brand-green font-mono font-bold uppercase tracking-wider block mb-1">Direct Agent Desk</span>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Interested in this Property?</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Contact our sales team directly or use the floating action buttons to initiate a chat or call.</p>
                 </div>
 
-                <!-- WhatsApp CTA Button -->
-                <a href="{{ property.get_whatsapp_link }}" target="_blank" 
-                   class="w-full bg-brand-green hover:bg-emerald-400 text-black py-3.5 px-4 rounded-xl font-extrabold text-xs transition flex items-center justify-center shadow-lg shadow-brand-green/20">
-                    <i class="fa-brands fa-whatsapp text-lg mr-2 text-black"></i> Chat on WhatsApp Now
-                </a>
-
-                <!-- Call Direct Buttons -->
-                <div class="space-y-2 border-t border-brand-border pt-4">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Direct Phone Lines</span>
-                    <a href="tel:+233244057147" class="w-full bg-brand-dark hover:bg-slate-800 text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 024 405 7147</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                <!-- Call Direct Phone Lines -->
+                <div class="space-y-2 border-t border-slate-200 dark:border-brand-border pt-4">
+                    <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2">Direct Phone Lines</span>
+                    <a href="tel:+233244057147" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
+                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 024 405 7147</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
-                    <a href="tel:+233599187441" class="w-full bg-brand-dark hover:bg-slate-800 text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 059 918 7441</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    <a href="tel:+233599187441" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
+                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 059 918 7441</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
-                    <a href="tel:+233598870757" class="w-full bg-brand-dark hover:bg-slate-800 text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 059 887 0757</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    <a href="tel:+233598870757" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
+                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 059 887 0757</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                 </div>
             </div>

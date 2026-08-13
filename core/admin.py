@@ -12,7 +12,7 @@ class PropertyAdmin(admin.ModelAdmin):
     list_display = ('ref_code', 'title', 'listing_type', 'location', 'currency', 'price', 'is_featured', 'is_available', 'created_at')
     list_filter = ('listing_type', 'location', 'category', 'is_featured', 'is_available')
     search_fields = ('title', 'ref_code', 'description', 'location__name')
-    prepopulated_fields = {'slug': ('title', 'ref_code')}
+    readonly_fields = ('ref_code',)  # Ref code is auto-generated on save
     inlines = [PropertyImageInline]
 
 

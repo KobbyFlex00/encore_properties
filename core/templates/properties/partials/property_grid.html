@@ -3,19 +3,13 @@
 {% if properties %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for property in properties %}
-        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
+        <div class="bg-white dark:bg-brand-card rounded-2xl overflow-hidden border border-slate-200 dark:border-brand-border shadow-xl hover:shadow-2xl transition-all duration-300 group flex flex-col justify-between">
             
-            <!-- Video / Photo Container with Large Centered Play Button -->
+            <!-- Uploaded Image Container with Direct Social Video Trigger -->
             <div class="relative aspect-[16/10] overflow-hidden bg-slate-950 flex items-center justify-center">
                 
-                <!-- Property Image / YouTube Thumbnail -->
-                {% if property.get_thumbnail_url %}
-                    <img src="{{ property.get_thumbnail_url }}" alt="{{ property.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                {% else %}
-                    <div class="w-full h-full bg-slate-800 flex items-center justify-center">
-                        <i class="fa-solid fa-house text-4xl text-slate-600"></i>
-                    </div>
-                {% endif %}
+                <!-- Mandatory Main Image Display -->
+                <img src="{{ property.main_image.url }}" alt="{{ property.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
 
                 <!-- Top Left Category Tag -->
                 <div class="absolute top-3 left-3 z-10">
@@ -24,46 +18,57 @@
                     </span>
                 </div>
 
-                <!-- Top Right "NOW SELLING" / Listing Badge -->
+                <!-- Top Right Ref Code Badge -->
                 <div class="absolute top-3 right-3 z-10">
-                    <span class="bg-pink-600 text-white font-black text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md">
-                        NOW SELLING
+                    <span class="bg-black/80 backdrop-blur-md text-brand-gold font-mono font-bold text-[10px] px-2.5 py-1 rounded border border-brand-gold/30">
+                        #{{ property.ref_code }}
                     </span>
                 </div>
 
-                <!-- LARGE CENTERED PLAY BUTTON OVERLAY (Exact EmanHomes Style) -->
-                <a href="{% url 'core:property_detail' property.slug %}" class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors z-10">
+                <!-- Centered Play Button Trigger (Directly opens social media video link) -->
+                {% with social=property.get_social_platform_info %}
+                <a href="{{ property.social_media_url }}" target="_blank" 
+                   title="Watch Video on {{ social.platform }}"
+                   class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors z-10">
                     <div class="w-16 h-12 md:w-20 md:h-14 bg-white/90 group-hover:bg-white rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
                         <i class="fa-solid fa-play text-slate-900 text-xl md:text-2xl ml-1"></i>
                     </div>
                 </a>
+                {% endwith %}
             </div>
 
             <!-- Card Body -->
-            <div class="p-6 flex-grow flex flex-col justify-between bg-white text-slate-900">
+            <div class="p-6 flex-grow flex flex-col justify-between bg-white dark:bg-brand-card text-slate-900 dark:text-slate-100">
                 <div>
-                    <!-- Bold Title -->
-                    <h3 class="text-base font-black text-slate-900 uppercase tracking-tight line-clamp-1 mb-2 group-hover:text-brand-gold transition-colors">
+                    <!-- Title -->
+                    <h3 class="text-base font-black text-slate-900 dark:text-white uppercase tracking-tight line-clamp-1 mb-2 group-hover:text-brand-gold transition-colors">
                         {{ property.title }}
                     </h3>
 
-                    <!-- Location Pin & Name -->
-                    <div class="flex items-center text-xs font-bold text-amber-600 mb-3">
-                        <i class="fa-solid fa-location-dot mr-1.5 text-amber-600"></i> {{ property.location.name }}
+                    <!-- Location Pin -->
+                    <div class="flex items-center text-xs font-bold text-amber-600 dark:text-brand-green mb-3">
+                        <i class="fa-solid fa-location-dot mr-1.5"></i> {{ property.location.name }}
                     </div>
 
                     <!-- Price -->
-                    <div class="text-xl font-extrabold text-amber-600 mb-5">
+                    <div class="text-xl font-extrabold text-amber-600 dark:text-brand-gold mb-5">
                         {% if property.currency == 'USD' %}${% else %}GH₵{% endif %}{{ property.price|intcomma }}
                     </div>
                 </div>
 
-                <!-- Full Width Rounded Outline Button -->
-                <div>
+                <!-- Dual Action CTAs: View Details + Direct Social Link -->
+                <div class="grid grid-cols-2 gap-2">
                     <a href="{% url 'core:property_detail' property.slug %}" 
-                       class="block w-full text-center border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white font-bold text-xs py-2.5 rounded-full transition-all duration-200">
+                       class="block text-center border-2 border-slate-900 dark:border-brand-border text-slate-900 dark:text-slate-200 hover:bg-slate-900 hover:text-white dark:hover:bg-slate-800 font-bold text-xs py-2.5 rounded-full transition-all duration-200">
                         View Details
                     </a>
+
+                    {% with social=property.get_social_platform_info %}
+                    <a href="{{ property.social_media_url }}" target="_blank" 
+                       class="block text-center {{ social.color }} text-white font-bold text-xs py-2.5 rounded-full transition-all duration-200 flex items-center justify-center shadow-md">
+                        <i class="{{ social.icon }} mr-1.5"></i> {{ social.platform }}
+                    </a>
+                    {% endwith %}
                 </div>
             </div>
 
@@ -71,14 +76,13 @@
         {% endfor %}
     </div>
 {% else %}
-    <!-- Empty State -->
-    <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 max-w-xl mx-auto my-8 shadow-sm">
-        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 text-2xl">
+    <div class="bg-white dark:bg-brand-card rounded-2xl p-12 text-center border border-slate-200 dark:border-brand-border max-w-xl mx-auto my-8 shadow-sm">
+        <div class="w-16 h-16 bg-slate-100 dark:bg-brand-dark rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 dark:text-brand-gold text-2xl">
             <i class="fa-solid fa-house-circle-xmark"></i>
         </div>
-        <h3 class="text-lg font-bold text-slate-900 mb-1">No Properties Found</h3>
-        <p class="text-xs text-slate-500 mb-6">We couldn't find any listings matching your search filters. Try adjusting your location, budget, or category.</p>
-        <a href="{% url 'core:property_list' %}" class="inline-block bg-slate-900 text-white font-bold text-xs px-6 py-2.5 rounded-full transition hover:bg-amber-600">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">No Properties Found</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">We couldn't find any listings matching your search filters. Try adjusting your location or category.</p>
+        <a href="{% url 'core:property_list' %}" class="inline-block bg-slate-900 dark:bg-brand-green text-white dark:text-black font-bold text-xs px-6 py-2.5 rounded-full transition">
             Reset Filters
         </a>
     </div>

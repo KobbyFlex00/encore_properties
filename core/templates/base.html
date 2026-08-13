@@ -40,18 +40,21 @@
 <body class="bg-slate-50 dark:bg-brand-dark text-slate-800 dark:text-slate-200 font-sans flex flex-col min-h-screen pb-16 md:pb-0 transition-colors duration-300">
 
     <!-- Top Contact & Certification Bar (Desktop) -->
-    <div class="bg-black text-slate-300 text-xs py-2 px-4 hidden md:block border-b border-brand-border">
+    <div class="bg-black text-slate-300 text-xs py-2.5 px-4 hidden md:block border-b border-brand-border">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-6">
                 <span><i class="fa-solid fa-phone text-brand-green mr-2"></i>024 405 7147 / 059 918 7441 / 059 887 0757</span>
                 <span><i class="fa-solid fa-envelope text-brand-gold mr-2"></i>encorepropertiesgrouplimited@gmail.com</span>
-                <span class="text-brand-green font-bold"><i class="fa-solid fa-certificate text-brand-gold mr-1"></i> GREPA & NAR Certified Member</span>
+                <span class="font-bold">
+                    <i class="fa-solid fa-certificate text-brand-gold mr-1"></i> 
+                    <span class="text-red-500 font-black">GREPA</span> & <span class="text-blue-400 font-black">NAR</span> Certified Member
+                </span>
             </div>
             
             <div class="flex items-center space-x-4 text-sm">
                 <!-- Theme Mode Toggle -->
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-                        class="text-xs px-2 py-1 rounded bg-brand-card border border-brand-border text-brand-gold hover:text-white transition flex items-center">
+                        class="text-xs px-2.5 py-1 rounded bg-brand-card border border-brand-border text-brand-gold hover:text-white transition flex items-center">
                     <template x-if="darkMode">
                         <span><i class="fa-solid fa-sun text-yellow-400 mr-1"></i> Light</span>
                     </template>
@@ -95,21 +98,13 @@
                 <a href="{% url 'core:contact' %}" class="hover:text-brand-green transition">Contact</a>
             </nav>
 
-            <div class="hidden md:flex items-center space-x-3">
-                <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" class="bg-brand-green hover:bg-emerald-400 text-black font-extrabold text-xs px-4 py-2.5 rounded-lg transition-all flex items-center shadow-md">
-                    <i class="fa-brands fa-whatsapp text-sm mr-2"></i> Chat on WhatsApp
-                </a>
-            </div>
-
             <!-- Mobile Hamburger Button -->
             <div class="flex items-center space-x-3 md:hidden">
-                <!-- Mobile Theme Toggle -->
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
                         class="text-xs p-2 rounded-lg bg-slate-100 dark:bg-brand-card border border-slate-200 dark:border-brand-border text-brand-gold">
                     <i class="fa-solid" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-indigo-400'"></i>
                 </button>
 
-                <!-- Hamburger Icon -->
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
                         class="text-brand-gold text-2xl p-1 focus:outline-none">
                     <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
@@ -117,7 +112,7 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Menu Dropdown -->
+        <!-- Mobile Navigation Dropdown -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition ease-out duration-200"
              x-transition:enter-start="opacity-0 -translate-y-2"
@@ -149,13 +144,6 @@
             <a href="{% url 'core:contact' %}" class="block py-2 border-b border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-envelope mr-3 text-brand-gold"></i> Contact Sales Desk
             </a>
-
-            <div class="pt-2">
-                <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" 
-                   class="w-full bg-brand-green text-black font-black text-xs py-3 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Chat on WhatsApp Now
-                </a>
-            </div>
         </div>
     </header>
 
@@ -164,7 +152,7 @@
         {% endblock %}
     </main>
 
-    <!-- Sticky Mobile Bottom Contact Action Bar -->
+    <!-- Sticky Mobile Bottom Bar -->
     <div class="md:hidden fixed bottom-0 left-0 right-0 bg-brand-dark/95 backdrop-blur-lg border-t border-brand-border p-2 z-50 grid grid-cols-2 gap-2 shadow-2xl">
         <a href="tel:+233244057147" class="bg-brand-card hover:bg-slate-800 text-white py-2.5 rounded-lg flex items-center justify-center font-bold text-xs border border-brand-border">
             <i class="fa-solid fa-phone text-brand-gold mr-2"></i> Call Agent
@@ -174,7 +162,7 @@
         </a>
     </div>
 
-    <!-- Floating Circular Action Buttons -->
+    <!-- Exclusive Floating Circular Action Buttons (Maintained as Primary Contact Action) -->
     <div class="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 flex flex-col space-y-3">
         <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." 
            target="_blank" 
@@ -196,12 +184,11 @@
                 <span class="text-base font-black text-brand-gold">ENCORE PROPERTY GROUP LTD</span>
             </div>
             
-            <!-- Corporate Certification Footnote -->
             <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-[11px] text-slate-400 pt-2 border-t border-slate-800">
                 <span><i class="fa-solid fa-shield-halved text-brand-green mr-1"></i> Reg No. CS214391021</span>
                 <span><i class="fa-solid fa-file-invoice text-brand-gold mr-1"></i> TIN: C0061330159</span>
-                <span><i class="fa-solid fa-certificate text-brand-green mr-1"></i> GREPA Member</span>
-                <span><i class="fa-solid fa-award text-brand-gold mr-1"></i> REALTOR® Certified</span>
+                <span><i class="fa-solid fa-certificate text-red-500 mr-1"></i> <strong class="text-red-500">GREPA</strong> Member</span>
+                <span><i class="fa-solid fa-award text-blue-400 mr-1"></i> <strong class="text-blue-400">REALTOR®</strong> Certified</span>
             </div>
 
             <p class="text-slate-500 pt-2">&copy; 2026 Encore Property Group Ltd. Incorporated under Companies Act 2019 (Act 992). All rights reserved.</p>

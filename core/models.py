@@ -53,7 +53,10 @@ class Property(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
-    ref_code = models.CharField(max_length=20, unique=True, help_text="e.g. EP-101 or #JJ_001")
+    
+    # Ref Code auto-generated automatically (e.g. EP-001)
+    ref_code = models.CharField(max_length=20, unique=True, blank=True, help_text="Auto-generated e.g. EP-001")
+    
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='properties')
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='properties')
     listing_type = models.CharField(max_length=20, choices=LISTING_TYPES, default='sale')
@@ -69,12 +72,13 @@ class Property(models.Model):
     description = models.TextField()
     amenities = models.TextField(help_text="Comma-separated e.g. Pool, Generator, Security")
 
-    main_image = CloudinaryField('image', blank=True, null=True, help_text="Optional. Leave blank if using a social media link.")
+    # Mandatory Image Upload
+    main_image = CloudinaryField('image', help_text="Property primary feature photo (Required)")
+    
+    # Mandatory Social Media URL
     social_media_url = models.URLField(
         max_length=500, 
-        blank=True, 
-        null=True, 
-        help_text="Paste link from Instagram, TikTok, YouTube, Facebook, X, or Snapchat."
+        help_text="Direct link to property post on Instagram, TikTok, YouTube, Facebook, X, etc. (Required)"
     )
 
     is_featured = models.BooleanField(default=False)
@@ -87,8 +91,15 @@ class Property(models.Model):
         ordering = ['-created_at']
 
     def save(self, *args, **kwargs):
+        # Auto-generate Ref Code if blank
+        if not self.ref_code:
+            last_property = Property.objects.all().order_by('id').last()
+            next_id = (last_property.id + 1) if last_property else 1
+            self.ref_code = f"EP-{next_id:03d}"
+
         if not self.slug:
             self.slug = slugify(f"{self.title}-{self.ref_code}")
+            
         super().save(*args, **kwargs)
 
     def get_whatsapp_link(self):
@@ -96,58 +107,23 @@ class Property(models.Model):
         msg = f"Hello Encore Properties, I am interested in viewing {self.title} (Ref: #{self.ref_code}) listed at {self.currency} {self.price:,.2f}. Please provide more details."
         return f"https://wa.me/{phone}?text={urllib.parse.quote(msg)}"
 
-    def get_thumbnail_url(self):
-        if self.main_image:
-            return self.main_image.url
-        
-        url = self.social_media_url or ""
-        if "youtube.com" in url or "youtu.be" in url:
-            video_id = ""
-            if "youtu.be" in url:
-                video_id = url.split("/")[-1].split("?")[0]
-            elif "v=" in url:
-                video_id = url.split("v=")[1].split("&")[0]
-            if video_id:
-                return f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
-        return None
-
     def get_social_platform_info(self):
+        """Identifies platform type for button styling."""
         url = self.social_media_url or ""
         if "instagram.com" in url:
-            match = re.search(r'instagram\.com/(?:p|reel|tv)/([^/?#&]+)', url)
-            post_id = match.group(1) if match else ""
-            embed_url = f"https://www.instagram.com/p/{post_id}/embed" if post_id else ""
-            return {
-                "platform": "instagram", 
-                "embed_url": embed_url, 
-                "is_embeddable": bool(embed_url),
-                "icon": "fa-brands fa-instagram", 
-                "color": "from-purple-600 via-pink-500 to-amber-500"
-            }
-        elif "youtube.com" in url or "youtu.be" in url:
-            video_id = ""
-            if "youtu.be" in url:
-                video_id = url.split("/")[-1].split("?")[0]
-            elif "v=" in url:
-                video_id = url.split("v=")[1].split("&")[0]
-            embed_url = f"https://www.youtube.com/embed/{video_id}" if video_id else url
-            return {
-                "platform": "youtube", 
-                "embed_url": embed_url, 
-                "is_embeddable": True,
-                "icon": "fa-brands fa-youtube", 
-                "color": "bg-red-600"
-            }
+            return {"platform": "Instagram", "icon": "fa-brands fa-instagram", "color": "bg-pink-600 hover:bg-pink-700"}
         elif "tiktok.com" in url:
-            return {"platform": "tiktok", "url": url, "is_embeddable": False, "icon": "fa-brands fa-tiktok", "color": "bg-black"}
+            return {"platform": "TikTok", "icon": "fa-brands fa-tiktok", "color": "bg-black hover:bg-slate-900"}
+        elif "youtube.com" in url or "youtu.be" in url:
+            return {"platform": "YouTube", "icon": "fa-brands fa-youtube", "color": "bg-red-600 hover:bg-red-700"}
         elif "facebook.com" in url:
-            return {"platform": "facebook", "url": url, "is_embeddable": False, "icon": "fa-brands fa-facebook", "color": "bg-blue-600"}
+            return {"platform": "Facebook", "icon": "fa-brands fa-facebook", "color": "bg-blue-600 hover:bg-blue-700"}
         elif "x.com" in url or "twitter.com" in url:
-            return {"platform": "x", "url": url, "is_embeddable": False, "icon": "fa-brands fa-x-twitter", "color": "bg-slate-900"}
+            return {"platform": "X (Twitter)", "icon": "fa-brands fa-x-twitter", "color": "bg-slate-900 hover:bg-black"}
         elif "snapchat.com" in url:
-            return {"platform": "snapchat", "url": url, "is_embeddable": False, "icon": "fa-brands fa-snapchat", "color": "bg-yellow-400 text-black"}
+            return {"platform": "Snapchat", "icon": "fa-brands fa-snapchat", "color": "bg-yellow-400 text-black hover:bg-yellow-500"}
             
-        return {"platform": "generic", "url": url, "is_embeddable": False, "icon": "fa-solid fa-link", "color": "bg-brand-green text-black"}
+        return {"platform": "Social Media", "icon": "fa-solid fa-arrow-up-right-from-square", "color": "bg-brand-green text-black hover:bg-emerald-400"}
 
     def __str__(self):
         return f"{self.ref_code} - {self.title}"
