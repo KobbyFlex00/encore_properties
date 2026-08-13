@@ -1,0 +1,1 @@
+New-Item -ItemType File -Path "core/static/.gitkeep" -Force
