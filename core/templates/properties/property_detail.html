@@ -89,7 +89,7 @@
             <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-xl">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                     <div>
-                        <div class="text-xs text-amber-600 dark:text-brand-green font-semibold mb-1">
+                        <div class="text-xs text-brand-gold dark:text-brand-green font-semibold mb-1">
                             <i class="fa-solid fa-location-dot mr-1"></i> {{ property.location.name }}
                         </div>
                         <h1 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="bg-slate-100 dark:bg-brand-dark px-4 py-3 rounded-xl border border-slate-200 dark:border-brand-border">
                         <span class="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Listing Price</span>
-                        <span class="text-2xl font-black text-amber-600 dark:text-brand-gold">
+                        <span class="text-2xl font-black text-brand-gold">
                             {% if property.currency == 'USD' %}${% else %}GH₵{% endif %}{{ property.price|intcomma }}
                         </span>
                     </div>
@@ -107,15 +107,15 @@
                 <!-- Specs Grid -->
                 <div class="grid grid-cols-3 gap-3 py-4 border-t border-slate-200 dark:border-brand-border text-center text-xs text-slate-700 dark:text-slate-300">
                     <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
-                        <i class="fa-solid fa-bed text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <i class="fa-solid fa-bed text-brand-gold mb-1 text-sm block"></i>
                         <span class="font-bold">{{ property.bedrooms }} Bedrooms</span>
                     </div>
                     <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
-                        <i class="fa-solid fa-bath text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <i class="fa-solid fa-bath text-brand-gold mb-1 text-sm block"></i>
                         <span class="font-bold">{{ property.bathrooms }} Bathrooms</span>
                     </div>
                     <div class="bg-slate-100 dark:bg-brand-dark py-2.5 rounded-lg border border-slate-200 dark:border-brand-border">
-                        <i class="fa-solid fa-ruler-combined text-amber-600 dark:text-brand-gold mb-1 text-sm block"></i>
+                        <i class="fa-solid fa-ruler-combined text-brand-gold mb-1 text-sm block"></i>
                         <span class="font-bold">{% if property.square_meters %}{{ property.square_meters|intcomma }} m²{% else %}N/A{% endif %}</span>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
         <div class="space-y-6">
             <div class="bg-white dark:bg-brand-card p-6 rounded-2xl border border-slate-200 dark:border-brand-border sticky top-24 shadow-2xl space-y-6">
                 <div>
-                    <span class="text-[10px] text-amber-600 dark:text-brand-green font-mono font-bold uppercase tracking-wider block mb-1">Direct Agent Desk</span>
+                    <span class="text-[10px] text-brand-gold dark:text-brand-green font-mono font-bold uppercase tracking-wider block mb-1">Direct Agent Desk</span>
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white">Interested in this Property?</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Contact our sales team directly or use the floating action buttons to initiate a chat or call.</p>
                 </div>
@@ -159,15 +159,15 @@
                 <div class="space-y-2 border-t border-slate-200 dark:border-brand-border pt-4">
                     <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2">Direct Phone Lines</span>
                     <a href="tel:+233244057147" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 024 405 7147</span>
+                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 024 405 7147</span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     <a href="tel:+233599187441" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 059 918 7441</span>
+                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 059 918 7441</span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                     <a href="tel:+233598870757" class="w-full bg-slate-100 dark:bg-brand-dark hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 py-2.5 px-3 rounded-lg font-bold text-xs border border-slate-200 dark:border-brand-border flex items-center justify-between transition">
-                        <span><i class="fa-solid fa-phone text-amber-600 dark:text-brand-gold mr-2"></i> 059 887 0757</span>
+                        <span><i class="fa-solid fa-phone text-brand-gold mr-2"></i> 059 887 0757</span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
                     </a>
                 </div>

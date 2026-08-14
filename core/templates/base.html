@@ -56,7 +56,7 @@
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
                         class="text-xs px-2.5 py-1 rounded bg-brand-card border border-brand-border text-brand-gold hover:text-white transition flex items-center">
                     <template x-if="darkMode">
-                        <span><i class="fa-solid fa-sun text-yellow-400 mr-1"></i> Light</span>
+                        <span><i class="fa-solid fa-sun text-brand-gold mr-1"></i> Light</span>
                     </template>
                     <template x-if="!darkMode">
                         <span><i class="fa-solid fa-moon text-indigo-400 mr-1"></i> Dark</span>
@@ -65,8 +65,10 @@
 
                 <a href="https://www.facebook.com/profile.php?id=100083054480577" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/encorepropertieslimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://linktr.ee/encorepropertiesgrouplimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="https://www.tiktok.com/@encorepropertygroupltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="https://youtube.com/@encorepropertiesltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://snapchat.com" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-snapchat"></i></a>
             </div>
         </div>
     </div>
@@ -102,7 +104,7 @@
             <div class="flex items-center space-x-3 md:hidden">
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
                         class="text-xs p-2 rounded-lg bg-slate-100 dark:bg-brand-card border border-slate-200 dark:border-brand-border text-brand-gold">
-                    <i class="fa-solid" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-indigo-400'"></i>
+                    <i class="fa-solid" :class="darkMode ? 'fa-sun text-brand-gold' : 'fa-moon text-indigo-400'"></i>
                 </button>
 
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
@@ -162,7 +164,7 @@
         </a>
     </div>
 
-    <!-- Exclusive Floating Circular Action Buttons (Maintained as Primary Contact Action) -->
+    <!-- Exclusive Floating Circular Action Buttons -->
     <div class="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 flex flex-col space-y-3">
         <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." 
            target="_blank" 
@@ -172,7 +174,7 @@
         </a>
         <a href="tel:+233244057147" 
            title="Call Agent"
-           class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold hover:bg-yellow-500 text-slate-950 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+           class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold hover:opacity-90 text-slate-950 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
             <i class="fa-solid fa-phone text-xl md:text-2xl"></i>
         </a>
     </div>

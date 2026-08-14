@@ -35,7 +35,7 @@
         </div>
     </template>
 
-    <!-- Dark Overlay to keep search form & text highly readable -->
+    <!-- Dark Overlay -->
     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/85 z-10"></div>
     <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl pointer-events-none z-10"></div>
 
@@ -63,7 +63,7 @@
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
                         class="h-1.5 rounded-full transition-all duration-300"
-                        :class="activeSlide === index ? 'w-8 bg-brand-green' : 'w-2 bg-white/40'"></button>
+                        :class="activeSlide === index ? 'w-8 bg-brand-gold' : 'w-2 bg-white/40'"></button>
             </template>
         </div>
 
@@ -78,14 +78,14 @@
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Search Keyword</label>
                     <div class="relative">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" name="q" placeholder="Title, ref code (e.g. EP-101)..." 
-                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg pl-9 pr-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                        <input type="text" name="q" placeholder="Title, ref code (e.g. EP-001)..." 
+                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg pl-9 pr-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Listing Type</label>
-                    <select name="listing_type" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                    <select name="listing_type" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
                         <option value="">All Types</option>
                         <option value="sale" {% if selected_listing_type == 'sale' %}selected{% endif %}>For Sale</option>
                         <option value="rent" {% if selected_listing_type == 'rent' %}selected{% endif %}>For Rent</option>
@@ -96,7 +96,7 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Location</label>
-                    <select name="location" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                    <select name="location" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
                         <option value="">All Locations</option>
                         {% for loc in locations %}
                             <option value="{{ loc.id }}" {% if selected_location == loc.id|stringformat:"s" %}selected{% endif %}>{{ loc.name }}</option>
@@ -106,7 +106,7 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Category</label>
-                    <select name="category" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
+                    <select name="category" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
                         <option value="">All Categories</option>
                         {% for cat in categories %}
                             <option value="{{ cat.id }}">{{ cat.name }}</option>
@@ -156,8 +156,8 @@
 <!-- Property Grid Display Container -->
 <section class="max-w-7xl mx-auto px-4 py-12">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-bold text-white dark:text-white tracking-tight">
-            Featured <span class="text-brand-green">Real Estate Listings</span>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+            Featured <span class="text-brand-gold">Real Estate Listings</span>
         </h2>
         <span class="text-xs text-slate-500 font-mono">Verified Listings</span>
     </div>

@@ -25,7 +25,7 @@
                     </span>
                 </div>
 
-                <!-- Centered Play Button Trigger (Directly opens social media video link) -->
+                <!-- Centered Play Button Trigger -->
                 {% with social=property.get_social_platform_info %}
                 <a href="{{ property.social_media_url }}" target="_blank" 
                    title="Watch Video on {{ social.platform }}"
@@ -45,13 +45,13 @@
                         {{ property.title }}
                     </h3>
 
-                    <!-- Location Pin -->
-                    <div class="flex items-center text-xs font-bold text-amber-600 dark:text-brand-green mb-3">
-                        <i class="fa-solid fa-location-dot mr-1.5"></i> {{ property.location.name }}
+                    <!-- Location Pin with Brand Gold in light mode -->
+                    <div class="flex items-center text-xs font-bold text-brand-gold dark:text-brand-green mb-3">
+                        <i class="fa-solid fa-location-dot mr-1.5 text-brand-gold dark:text-brand-green"></i> {{ property.location.name }}
                     </div>
 
-                    <!-- Price -->
-                    <div class="text-xl font-extrabold text-amber-600 dark:text-brand-gold mb-5">
+                    <!-- Price in Metallic Gold -->
+                    <div class="text-xl font-black text-brand-gold mb-5">
                         {% if property.currency == 'USD' %}${% else %}GH₵{% endif %}{{ property.price|intcomma }}
                     </div>
                 </div>
@@ -77,7 +77,7 @@
     </div>
 {% else %}
     <div class="bg-white dark:bg-brand-card rounded-2xl p-12 text-center border border-slate-200 dark:border-brand-border max-w-xl mx-auto my-8 shadow-sm">
-        <div class="w-16 h-16 bg-slate-100 dark:bg-brand-dark rounded-full flex items-center justify-center mx-auto mb-4 text-amber-600 dark:text-brand-gold text-2xl">
+        <div class="w-16 h-16 bg-slate-100 dark:bg-brand-dark rounded-full flex items-center justify-center mx-auto mb-4 text-brand-gold text-2xl">
             <i class="fa-solid fa-house-circle-xmark"></i>
         </div>
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">No Properties Found</h3>
