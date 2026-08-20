@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && true) }" 
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && false) }" 
       :class="{ 'dark': darkMode }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Encore Property Group Ltd | Certified Luxury Real Estate Ghana{% endblock %}</title>
+    <title>{% block title %}Encore Property Group Ltd | Luxury Real Estate Ghana{% endblock %}</title>
 
     {% block opengraph %}
-    <meta property="og:title" content="Encore Property Group Ltd - Certified Luxury Real Estate Ghana">
+    <meta property="og:title" content="Encore Property Group Ltd - Luxury Real Estate Ghana">
     <meta property="og:description" content="Certified GREPA & NAR Member | Discover premium homes, short stays, and land in Ghana.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
@@ -21,10 +21,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            green: '#00E676',
-                            gold: '#D4AF37',
-                            dark: '#0A0A0A',
-                            card: '#171717',
+                            green: '#22C55E',   /* Vibrant Encore Lime Green */
+                            gold: '#C5A059',    /* Official Metallic Gold */
+                            dark: '#0A0A0A',    /* Dark Mode Pitch Black */
+                            card: '#141414',    /* Dark Card */
                             border: '#262626',
                         }
                     }
@@ -37,10 +37,10 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-slate-50 dark:bg-brand-dark text-slate-800 dark:text-slate-200 font-sans flex flex-col min-h-screen pb-16 md:pb-0 transition-colors duration-300">
+<body class="bg-white dark:bg-brand-dark text-slate-800 dark:text-slate-200 font-sans flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- Top Contact & Certification Bar (Desktop) -->
-    <div class="bg-black text-slate-300 text-xs py-2.5 px-4 hidden md:block border-b border-brand-border">
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 hidden md:block border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-6">
                 <span><i class="fa-solid fa-phone text-brand-green mr-2"></i>024 405 7147 / 059 918 7441 / 059 887 0757</span>
@@ -54,7 +54,7 @@
             <div class="flex items-center space-x-4 text-sm">
                 <!-- Theme Mode Toggle -->
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-                        class="text-xs px-2.5 py-1 rounded bg-brand-card border border-brand-border text-brand-gold hover:text-white transition flex items-center">
+                        class="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-brand-gold hover:text-white transition flex items-center">
                     <template x-if="darkMode">
                         <span><i class="fa-solid fa-sun text-brand-gold mr-1"></i> Light</span>
                     </template>
@@ -65,33 +65,41 @@
 
                 <a href="https://www.facebook.com/profile.php?id=100083054480577" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/encorepropertieslimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://linktr.ee/encorepropertiesgrouplimited" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="https://www.tiktok.com/@encorepropertygroupltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="https://youtube.com/@encorepropertiesltd" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://snapchat.com" target="_blank" class="hover:text-brand-green transition"><i class="fa-brands fa-snapchat"></i></a>
             </div>
         </div>
     </div>
 
     <!-- Main Navigation Header -->
-    <header class="bg-white dark:bg-brand-dark/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 dark:border-brand-border shadow-md"
+    <header class="bg-white dark:bg-brand-dark/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 dark:border-brand-border shadow-sm"
             x-data="{ mobileMenuOpen: false }">
-        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex justify-between items-center">
             
-            <!-- Brand Logo -->
+            <!-- Official Vector Brand Logo -->
             <a href="{% url 'core:property_list' %}" class="flex items-center space-x-3 group">
-                <div class="relative w-9 h-9 flex items-center justify-center">
-                    <div class="absolute -top-1 -left-1 w-5 h-5 border-t-2 border-l-2 border-brand-green"></div>
-                    <i class="fa-solid fa-house-chimney text-brand-gold text-xl group-hover:scale-105 transition-transform"></i>
-                </div>
+                <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Lime Green L-bracket Framing -->
+                    <path d="M15 80 V20 H80" stroke="#22C55E" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter"/>
+                    <!-- Metallic Gold Roof -->
+                    <path d="M28 52 L52 30 L76 52" stroke="#C5A059" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Metallic Gold Base House Frame -->
+                    <path d="M36 50 V75 H78" stroke="#C5A059" stroke-width="6" stroke-linecap="square"/>
+                    <!-- 4 Window Panes -->
+                    <rect x="46" y="55" width="4.5" height="4.5" fill="#4A4A4A"/>
+                    <rect x="53" y="55" width="4.5" height="4.5" fill="#4A4A4A"/>
+                    <rect x="46" y="62" width="4.5" height="4.5" fill="#4A4A4A"/>
+                    <rect x="53" y="62" width="4.5" height="4.5" fill="#4A4A4A"/>
+                </svg>
+
                 <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-wider text-brand-gold leading-none">ENCORE</span>
-                    <span class="text-[9px] font-bold text-slate-500 dark:text-slate-400 tracking-widest uppercase mt-0.5">Property Group Ltd</span>
+                    <span class="text-xl font-black tracking-widest text-brand-gold leading-none">ENCORE</span>
+                    <span class="text-[8.5px] font-bold text-slate-800 dark:text-slate-400 tracking-[0.2em] uppercase mt-0.5">Property Group Ltd</span>
                 </div>
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold text-slate-700 dark:text-slate-200">
                 <a href="{% url 'core:property_list' %}" class="hover:text-brand-green transition">Home</a>
                 <a href="{% url 'core:about' %}" class="hover:text-brand-green transition">About & Team</a>
                 <a href="{% url 'core:property_list' %}?listing_type=sale" class="hover:text-brand-green transition">For Sale</a>
@@ -100,16 +108,16 @@
                 <a href="{% url 'core:contact' %}" class="hover:text-brand-green transition">Contact</a>
             </nav>
 
-            <!-- Mobile Hamburger Button -->
-            <div class="flex items-center space-x-3 md:hidden">
+            <!-- Mobile Controls -->
+            <div class="flex items-center space-x-2 md:hidden">
                 <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-                        class="text-xs p-2 rounded-lg bg-slate-100 dark:bg-brand-card border border-slate-200 dark:border-brand-border text-brand-gold">
-                    <i class="fa-solid" :class="darkMode ? 'fa-sun text-brand-gold' : 'fa-moon text-indigo-400'"></i>
+                        class="text-xs p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-brand-gold">
+                    <i class="fa-solid" :class="darkMode ? 'fa-sun text-brand-gold' : 'fa-moon text-indigo-500'"></i>
                 </button>
 
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
-                        class="text-brand-gold text-2xl p-1 focus:outline-none">
-                    <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+                        class="text-brand-green text-2xl p-1.5 focus:outline-none">
+                    <i class="fa-solid" :class="mobileMenuOpen ? 'fa-xmark text-slate-800 dark:text-white' : 'fa-bars'"></i>
                 </button>
             </div>
         </div>
@@ -123,27 +131,27 @@
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-2"
              @click.away="mobileMenuOpen = false"
-             class="md:hidden bg-slate-900 dark:bg-brand-card border-b border-brand-border px-4 py-5 space-y-4 text-sm font-bold text-slate-200 shadow-2xl">
+             class="md:hidden bg-white dark:bg-brand-card border-b border-slate-200 dark:border-brand-border px-5 py-5 space-y-3.5 text-sm font-bold text-slate-800 dark:text-slate-200 shadow-xl">
             
-            <a href="{% url 'core:property_list' %}" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:property_list' %}" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-house mr-3 text-brand-gold"></i> Home
             </a>
-            <a href="{% url 'core:about' %}" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:about' %}" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-users mr-3 text-brand-green"></i> About Us & Team
             </a>
-            <a href="{% url 'core:property_list' %}?listing_type=sale" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:property_list' %}?listing_type=sale" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-building mr-3 text-brand-gold"></i> Properties For Sale
             </a>
-            <a href="{% url 'core:property_list' %}?listing_type=rent" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:property_list' %}?listing_type=rent" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-key mr-3 text-brand-green"></i> Properties For Rent
             </a>
-            <a href="{% url 'core:property_list' %}?listing_type=short_stay" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:property_list' %}?listing_type=short_stay" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-hotel mr-3 text-brand-gold"></i> Short Stay Apartments
             </a>
-            <a href="{% url 'core:property_list' %}?listing_type=land" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:property_list' %}?listing_type=land" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-map-location-dot mr-3 text-brand-green"></i> Land / Plots
             </a>
-            <a href="{% url 'core:contact' %}" class="block py-2 border-b border-slate-800 hover:text-brand-green">
+            <a href="{% url 'core:contact' %}" class="block py-2 border-b border-slate-100 dark:border-slate-800 hover:text-brand-green">
                 <i class="fa-solid fa-envelope mr-3 text-brand-gold"></i> Contact Sales Desk
             </a>
         </div>
@@ -154,36 +162,28 @@
         {% endblock %}
     </main>
 
-    <!-- Sticky Mobile Bottom Bar -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-brand-dark/95 backdrop-blur-lg border-t border-brand-border p-2 z-50 grid grid-cols-2 gap-2 shadow-2xl">
-        <a href="tel:+233244057147" class="bg-brand-card hover:bg-slate-800 text-white py-2.5 rounded-lg flex items-center justify-center font-bold text-xs border border-brand-border">
-            <i class="fa-solid fa-phone text-brand-gold mr-2"></i> Call Agent
-        </a>
-        <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." target="_blank" class="bg-brand-green hover:bg-emerald-400 text-black font-extrabold py-2.5 rounded-lg flex items-center justify-center text-xs shadow-lg shadow-brand-green/20">
-            <i class="fa-brands fa-whatsapp text-sm mr-2 text-black"></i> WhatsApp Us
-        </a>
-    </div>
-
-    <!-- Exclusive Floating Circular Action Buttons -->
-    <div class="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 flex flex-col space-y-3">
+    <!-- Exclusive Floating Circular Action Buttons (No Duplicate Bottom Bar) -->
+    <div class="fixed bottom-6 right-5 z-50 flex flex-col space-y-3">
+        <!-- Floating WhatsApp Button -->
         <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." 
            target="_blank" 
            title="Chat on WhatsApp"
-           class="w-12 h-12 md:w-14 md:h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
-            <i class="fa-brands fa-whatsapp text-2xl md:text-3xl"></i>
+           class="w-13 h-13 p-3.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
         </a>
+        <!-- Floating Call Button -->
         <a href="tel:+233244057147" 
            title="Call Agent"
-           class="w-12 h-12 md:w-14 md:h-14 bg-brand-gold hover:opacity-90 text-slate-950 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
-            <i class="fa-solid fa-phone text-xl md:text-2xl"></i>
+           class="w-13 h-13 p-3.5 bg-brand-gold hover:opacity-90 text-slate-950 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-phone text-xl"></i>
         </a>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black text-slate-400 py-10 border-t border-brand-border text-xs">
+    <footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-800 text-xs">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
             <div class="flex justify-center items-center space-x-2">
-                <span class="text-base font-black text-brand-gold">ENCORE PROPERTY GROUP LTD</span>
+                <span class="text-base font-black text-brand-gold tracking-wider">ENCORE PROPERTY GROUP LTD</span>
             </div>
             
             <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-[11px] text-slate-400 pt-2 border-t border-slate-800">

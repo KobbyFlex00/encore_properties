@@ -1,33 +1,36 @@
 {% extends 'base.html' %}
 
-{% block title %}Encore Property Group Ltd | Luxury Real Estate & Certified Realtors Ghana{% endblock %}
+{% block title %}Encore Property Group Ltd | Luxury Real Estate Ghana{% endblock %}
 
 {% block content %}
-<!-- Hero Section with Live Moving Luxury Background Image Slider -->
-<section class="relative min-h-[560px] md:min-h-[620px] flex items-center justify-center border-b border-brand-border overflow-hidden"
+<!-- Ultra-Visible Luxury Estate Carousel Section -->
+<section class="relative min-h-[520px] md:min-h-[580px] flex items-center justify-center border-b border-slate-200 dark:border-brand-border overflow-hidden"
          x-data="{ 
              slides: [
                  { 
-                     title: 'Executive Luxury Mansions', 
-                     subtitle: 'Prime Locations in East Legon, Cantonments & Airport Residential',
-                     bg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80'
+                     title_lead: 'Discover',
+                     title_rest: 'A Place Where You\'ll Love To Live',
+                     subtitle: 'Explore 100+ verified luxury mansions, executive suites & land across Accra.',
+                     bg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85'
                  },
                  { 
-                     title: 'Furnished Short-Stay Apartments', 
-                     subtitle: '24/7 Security, Standby Generators & Fitted Kitchens',
-                     bg: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80'
+                     title_lead: 'Executive',
+                     title_rest: 'Mansions in Prime Neighborhoods',
+                     subtitle: 'Ultra-modern 4 & 5-bedroom luxury homes in East Legon, Cantonments & Airport.',
+                     bg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=85'
                  },
                  { 
-                     title: 'Verified Commercial & Residential Land', 
-                     subtitle: 'Fully Documented Land Sales Across Accra & Greater Accra',
-                     bg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80'
+                     title_lead: 'Luxury',
+                     title_rest: 'Furnished Short-Stay Accommodations',
+                     subtitle: '24/7 Security, Standby Generators, Swimming Pools & Fitted Kitchens.',
+                     bg: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85'
                  }
              ],
              activeSlide: 0,
-             init() { setInterval(() => { this.activeSlide = (this.activeSlide + 1) % this.slides.length }, 5000) }
+             init() { setInterval(() => { this.activeSlide = (this.activeSlide + 1) % this.slides.length }, 5500) }
          }">
 
-    <!-- Background Images with Smooth 1s Fade Transition -->
+    <!-- High-Resolution Image Slides with Soft Clean Contrast -->
     <template x-for="(slide, index) in slides" :key="index">
         <div class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
              :class="activeSlide === index ? 'opacity-100 scale-105' : 'opacity-0 scale-100'"
@@ -35,57 +38,58 @@
         </div>
     </template>
 
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/85 z-10"></div>
-    <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-green/10 rounded-full blur-3xl pointer-events-none z-10"></div>
+    <!-- Translucent Light Gradient (Ensures luxury house photos are fully visible and clear) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50 z-10"></div>
 
-    <div class="max-w-7xl mx-auto px-4 py-16 relative z-20 text-center w-full">
+    <div class="max-w-7xl mx-auto px-4 py-12 relative z-20 text-center w-full">
         
-        <!-- Hero Badge with Red GREPA & Blue NAR Colors -->
-        <span class="inline-block bg-black/80 border border-slate-700 font-mono font-bold text-[11px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 shadow-2xl backdrop-blur-md">
+        <!-- Certified Member Pill -->
+        <span class="inline-block bg-black/75 border border-white/20 font-mono font-bold text-[10.5px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 shadow-xl backdrop-blur-md text-white">
             <i class="fa-solid fa-award text-brand-gold mr-1.5"></i> 
             <span class="text-red-500 font-black">GREPA</span> & <span class="text-blue-400 font-black">NAR</span> CERTIFIED REAL ESTATE AGENCY
         </span>
 
-        <!-- Dynamic Slide Titles -->
+        <!-- Dynamic Carousel Headlines -->
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
                  x-transition:enter="transition ease-out duration-700 transform" 
-                 x-transition:enter-start="opacity-0 translate-y-4" 
+                 x-transition:enter-start="opacity-0 translate-y-3" 
                  x-transition:enter-end="opacity-100 translate-y-0">
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-3 drop-shadow-lg" x-text="slide.title"></h1>
-                <p class="text-xs md:text-sm text-slate-200 max-w-2xl mx-auto mb-8 leading-relaxed drop-shadow-md" x-text="slide.subtitle"></p>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-2.5 drop-shadow-md">
+                    <span class="text-brand-green" x-text="slide.title_lead"></span> <span x-text="slide.title_rest"></span>
+                </h1>
+                <p class="text-xs md:text-sm text-slate-200 font-medium max-w-xl mx-auto mb-6 drop-shadow" x-text="slide.subtitle"></p>
             </div>
         </template>
 
-        <!-- Carousel Slide Indicators -->
-        <div class="flex justify-center space-x-2 mb-8">
+        <!-- Carousel Slide Indicator Pills -->
+        <div class="flex justify-center space-x-2 mb-6">
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
                         class="h-1.5 rounded-full transition-all duration-300"
-                        :class="activeSlide === index ? 'w-8 bg-brand-gold' : 'w-2 bg-white/40'"></button>
+                        :class="activeSlide === index ? 'w-7 bg-brand-green' : 'w-2 bg-white/50'"></button>
             </template>
         </div>
 
         <!-- HTMX Smart Filter Bar -->
-        <div class="bg-brand-card/95 backdrop-blur-xl p-4 md:p-6 rounded-2xl border border-brand-border shadow-2xl max-w-5xl mx-auto text-left">
+        <div class="bg-white/95 dark:bg-brand-card/95 backdrop-blur-xl p-4 md:p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-2xl max-w-5xl mx-auto text-left">
             <form hx-get="{% url 'core:property_list' %}" 
                   hx-target="#property-grid" 
                   hx-trigger="change, keyup delay:300ms from:find input"
                   class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                 
                 <div class="lg:col-span-2">
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Search Keyword</label>
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Search Keyword</label>
                     <div class="relative">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
                         <input type="text" name="q" placeholder="Title, ref code (e.g. EP-001)..." 
-                               class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg pl-9 pr-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
+                               class="w-full bg-slate-50 dark:bg-brand-dark border border-slate-200 dark:border-brand-border text-slate-900 dark:text-white text-xs rounded-lg pl-9 pr-3 py-2.5 focus:border-brand-green focus:outline-none transition">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Listing Type</label>
-                    <select name="listing_type" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Listing Type</label>
+                    <select name="listing_type" class="w-full bg-slate-50 dark:bg-brand-dark border border-slate-200 dark:border-brand-border text-slate-900 dark:text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
                         <option value="">All Types</option>
                         <option value="sale" {% if selected_listing_type == 'sale' %}selected{% endif %}>For Sale</option>
                         <option value="rent" {% if selected_listing_type == 'rent' %}selected{% endif %}>For Rent</option>
@@ -95,8 +99,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Location</label>
-                    <select name="location" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Location</label>
+                    <select name="location" class="w-full bg-slate-50 dark:bg-brand-dark border border-slate-200 dark:border-brand-border text-slate-900 dark:text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
                         <option value="">All Locations</option>
                         {% for loc in locations %}
                             <option value="{{ loc.id }}" {% if selected_location == loc.id|stringformat:"s" %}selected{% endif %}>{{ loc.name }}</option>
@@ -105,8 +109,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Category</label>
-                    <select name="category" class="w-full bg-brand-dark border border-brand-border text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-gold focus:outline-none transition">
+                    <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Category</label>
+                    <select name="category" class="w-full bg-slate-50 dark:bg-brand-dark border border-slate-200 dark:border-brand-border text-slate-900 dark:text-white text-xs rounded-lg px-3 py-2.5 focus:border-brand-green focus:outline-none transition">
                         <option value="">All Categories</option>
                         {% for cat in categories %}
                             <option value="{{ cat.id }}">{{ cat.name }}</option>
@@ -119,34 +123,34 @@
     </div>
 </section>
 
-<!-- Official Accreditation & Corporate Legitimacy Bar -->
-<section class="bg-black py-6 border-b border-brand-border">
-    <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-around items-center gap-6 text-center text-xs text-slate-300">
+<!-- Official Accreditation Bar -->
+<section class="bg-white dark:bg-black py-6 border-b border-slate-200 dark:border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-around items-center gap-6 text-center text-xs">
         
-        <!-- GREPA Red Logo Feature -->
-        <div class="flex items-center space-x-3 bg-brand-card px-4 py-2.5 rounded-xl border border-brand-border">
+        <!-- GREPA Feature -->
+        <div class="flex items-center space-x-3 bg-slate-50 dark:bg-brand-card px-4 py-2.5 rounded-xl border border-slate-200 dark:border-brand-border shadow-sm">
             <div class="w-9 h-9 bg-red-600 rounded-lg flex items-center justify-center font-black text-white text-xs shadow-md">GREPA</div>
             <div class="text-left">
-                <span class="font-extrabold text-white block text-xs"><strong class="text-red-500">GREPA</strong> Member</span>
-                <span class="text-[9px] text-slate-400">Ghana Real Estate Professionals Assoc.</span>
+                <span class="font-extrabold text-slate-900 dark:text-white block text-xs"><strong class="text-red-500">GREPA</strong> Member</span>
+                <span class="text-[9px] text-slate-500 dark:text-slate-400">Ghana Real Estate Professionals Assoc.</span>
             </div>
         </div>
 
-        <!-- NAR Blue Logo Feature -->
-        <div class="flex items-center space-x-3 bg-brand-card px-4 py-2.5 rounded-xl border border-brand-border">
+        <!-- NAR Feature -->
+        <div class="flex items-center space-x-3 bg-slate-50 dark:bg-brand-card px-4 py-2.5 rounded-xl border border-slate-200 dark:border-brand-border shadow-sm">
             <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xs shadow-md">NAR</div>
             <div class="text-left">
-                <span class="font-extrabold text-white block text-xs"><strong class="text-blue-400">REALTOR®</strong> Certified</span>
-                <span class="text-[9px] text-slate-400">National Association of REALTORS®</span>
+                <span class="font-extrabold text-slate-900 dark:text-white block text-xs"><strong class="text-blue-500">REALTOR®</strong> Certified</span>
+                <span class="text-[9px] text-slate-500 dark:text-slate-400">National Association of REALTORS®</span>
             </div>
         </div>
 
         <!-- Ghana Incorporation Badge -->
-        <div class="flex items-center space-x-3 bg-brand-card px-4 py-2.5 rounded-xl border border-brand-border">
+        <div class="flex items-center space-x-3 bg-slate-50 dark:bg-brand-card px-4 py-2.5 rounded-xl border border-slate-200 dark:border-brand-border shadow-sm">
             <i class="fa-solid fa-file-certificate text-brand-gold text-2xl"></i>
             <div class="text-left">
-                <span class="font-extrabold text-white block text-xs">Incorporated under Act 992</span>
-                <span class="text-[9px] text-slate-400">Reg No. CS214391021 | TIN: C0061330159</span>
+                <span class="font-extrabold text-slate-900 dark:text-white block text-xs">Incorporated under Act 992</span>
+                <span class="text-[9px] text-slate-500 dark:text-slate-400">Reg No. CS214391021 | TIN: C0061330159</span>
             </div>
         </div>
 
