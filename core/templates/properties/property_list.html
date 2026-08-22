@@ -1,78 +1,154 @@
 {% extends 'base.html' %}
 
-{% block title %}Encore Property Group Ltd | Luxury Real Estate Ghana{% endblock %}
+{% block title %}Encore Property Group Ltd | Certified Luxury Real Estate Ghana{% endblock %}
 
 {% block content %}
-<!-- Ultra-Visible Luxury Estate Carousel Section -->
-<section class="relative min-h-[520px] md:min-h-[580px] flex items-center justify-center border-b border-slate-200 dark:border-brand-border overflow-hidden"
+<!-- Full-Featured Interactive Luxury Real Estate Carousel -->
+<section class="relative w-full overflow-hidden bg-black"
          x-data="{ 
              slides: [
                  { 
+                     img: 'https://hayattourism.com/uploads/hizmetler/large/investment_1.jpg',
+                     badge: 'Prime Real Estate',
                      title_lead: 'Discover',
                      title_rest: 'A Place Where You\'ll Love To Live',
-                     subtitle: 'Explore 100+ verified luxury mansions, executive suites & land across Accra.',
-                     bg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85'
+                     subtitle: 'Explore 100+ verified luxury mansions, executive suites & titled lands across Accra.'
                  },
                  { 
-                     title_lead: 'Executive',
-                     title_rest: 'Mansions in Prime Neighborhoods',
-                     subtitle: 'Ultra-modern 4 & 5-bedroom luxury homes in East Legon, Cantonments & Airport.',
-                     bg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=85'
-                 },
-                 { 
+                     img: 'https://joinhoustir.com/wp-content/uploads/2024/02/Houstir-Inc-Real-Estate-Expertise.jpg',
+                     badge: 'Executive Neighborhoods',
                      title_lead: 'Luxury',
-                     title_rest: 'Furnished Short-Stay Accommodations',
-                     subtitle: '24/7 Security, Standby Generators, Swimming Pools & Fitted Kitchens.',
-                     bg: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=85'
+                     title_rest: 'Mansions in East Legon & Cantonments',
+                     subtitle: 'Ultra-modern 4 & 5-bedroom gated homes built with premium European finishes.'
+                 },
+                 { 
+                     img: 'https://www.agentadvice.com/wp-content/uploads/2020/12/shutterstock_1247473441-scaled.jpg',
+                     badge: 'Commercial & Residential',
+                     title_lead: 'High-Yield',
+                     title_rest: 'Investment Properties in Ghana',
+                     subtitle: 'Prime real estate developments designed for high rental yields and capital growth.'
+                 },
+                 { 
+                     img: 'https://img.magnific.com/premium-photo/modern-real-estate-exterior-architecture-luxury-home-beautiful-villa_31965-134273.jpg?w=2000',
+                     badge: 'Architectural Excellence',
+                     title_lead: 'Contemporary',
+                     title_rest: 'Modern Villas & Smart Living',
+                     subtitle: 'Bespoke designs, private pools, fitted open-plan kitchens, and automated security.'
+                 },
+                 { 
+                     img: 'https://reluxeleaders.com/wp-content/uploads/2023/08/CPollinger_exterior_shot_of_luxury_home_infinity_pool_panoramic_121dd938-bdeb-42ec-ba74-b621a0166dd8.png',
+                     badge: 'Executive Lettings',
+                     title_lead: 'Panoramic',
+                     title_rest: 'Luxury Suites & Infinity Pools',
+                     subtitle: 'Fully furnished short-stay accommodations with 24/7 security & standby power.'
+                 },
+                 { 
+                     img: 'https://agentfire.com/wp-content/uploads/2025/07/4jf2JFZJ3t-file.jpeg',
+                     badge: 'Verified & Documented',
+                     title_lead: 'Titled',
+                     title_rest: 'Lands & Commercial Plots',
+                     subtitle: 'Legally documented and litigation-free lands across Greater Accra Region.'
                  }
              ],
-             activeSlide: 0,
-             init() { setInterval(() => { this.activeSlide = (this.activeSlide + 1) % this.slides.length }, 5500) }
-         }">
+             current: 0,
+             autoplayTimer: null,
+             startAutoplay() {
+                 this.autoplayTimer = setInterval(() => { this.next() }, 5500);
+             },
+             stopAutoplay() {
+                 clearInterval(this.autoplayTimer);
+             },
+             next() {
+                 this.current = (this.current + 1) % this.slides.length;
+             },
+             prev() {
+                 this.current = (this.current - 1 + this.slides.length) % this.slides.length;
+             }
+         }"
+         x-init="startAutoplay()"
+         @mouseenter="stopAutoplay()"
+         @mouseleave="startAutoplay()">
 
-    <!-- High-Resolution Image Slides with Soft Clean Contrast -->
-    <template x-for="(slide, index) in slides" :key="index">
-        <div class="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out"
-             :class="activeSlide === index ? 'opacity-100 scale-105' : 'opacity-0 scale-100'"
-             :style="`background-image: url('${slide.bg}');`">
-        </div>
-    </template>
-
-    <!-- Translucent Light Gradient (Ensures luxury house photos are fully visible and clear) -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50 z-10"></div>
-
-    <div class="max-w-7xl mx-auto px-4 py-12 relative z-20 text-center w-full">
+    <!-- Carousel Viewport -->
+    <div class="relative h-[480px] sm:h-[540px] md:h-[620px] w-full">
         
-        <!-- Certified Member Pill -->
-        <span class="inline-block bg-black/75 border border-white/20 font-mono font-bold text-[10.5px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 shadow-xl backdrop-blur-md text-white">
-            <i class="fa-solid fa-award text-brand-gold mr-1.5"></i> 
-            <span class="text-red-500 font-black">GREPA</span> & <span class="text-blue-400 font-black">NAR</span> CERTIFIED REAL ESTATE AGENCY
-        </span>
-
-        <!-- Dynamic Carousel Headlines -->
+        <!-- Image Slide Track -->
         <template x-for="(slide, index) in slides" :key="index">
-            <div x-show="activeSlide === index" 
-                 x-transition:enter="transition ease-out duration-700 transform" 
-                 x-transition:enter-start="opacity-0 translate-y-3" 
-                 x-transition:enter-end="opacity-100 translate-y-0">
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-2.5 drop-shadow-md">
-                    <span class="text-brand-green" x-text="slide.title_lead"></span> <span x-text="slide.title_rest"></span>
-                </h1>
-                <p class="text-xs md:text-sm text-slate-200 font-medium max-w-xl mx-auto mb-6 drop-shadow" x-text="slide.subtitle"></p>
+            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                 :class="current === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'">
+                
+                <!-- Vivid Luxury Background Image -->
+                <img :src="slide.img" 
+                     :alt="slide.title_rest" 
+                     class="w-full h-full object-cover object-center transform transition-transform duration-[6000ms] ease-out"
+                     :class="current === index ? 'scale-105' : 'scale-100'">
+
+                <!-- Subtle Clean Gradient (Keeps photos bright while ensuring text legibility) -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/40"></div>
+
+                <!-- Slide Content Overlay -->
+                <div class="absolute inset-0 flex items-center justify-center px-6">
+                    <div class="max-w-4xl mx-auto text-center space-y-3 md:space-y-4"
+                         x-show="current === index"
+                         x-transition:enter="transition ease-out duration-700 delay-200 transform"
+                         x-transition:enter-start="opacity-0 translate-y-6"
+                         x-transition:enter-end="opacity-100 translate-y-0">
+                        
+                        <!-- Accreditation Pill -->
+                        <span class="inline-flex items-center space-x-2 bg-black/80 border border-white/20 font-mono font-bold text-[10px] md:text-xs uppercase tracking-widest px-4 py-1.5 rounded-full shadow-2xl backdrop-blur-md text-white">
+                            <i class="fa-solid fa-award text-brand-gold"></i>
+                            <span class="text-red-500 font-black">GREPA</span>
+                            <span>&</span>
+                            <span class="text-blue-400 font-black">NAR</span>
+                            <span class="text-slate-300 hidden sm:inline">Certified Agency</span>
+                        </span>
+
+                        <!-- Main Headings -->
+                        <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
+                            <span class="text-brand-green" x-text="slide.title_lead"></span> 
+                            <span x-text="slide.title_rest"></span>
+                        </h1>
+
+                        <!-- Subtitle -->
+                        <p class="text-xs sm:text-sm md:text-base text-slate-200 font-medium max-w-2xl mx-auto leading-relaxed drop-shadow" 
+                           x-text="slide.subtitle"></p>
+                    </div>
+                </div>
+
             </div>
         </template>
 
-        <!-- Carousel Slide Indicator Pills -->
-        <div class="flex justify-center space-x-2 mb-6">
+        <!-- Carousel Left Navigation Chevron Button -->
+        <button @click="prev()" 
+                title="Previous Slide"
+                class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-brand-green text-white hover:text-black border border-white/20 flex items-center justify-center backdrop-blur-md transition-all duration-200 shadow-xl group">
+            <i class="fa-solid fa-chevron-left text-sm md:text-base group-hover:-translate-x-0.5 transition-transform"></i>
+        </button>
+
+        <!-- Carousel Right Navigation Chevron Button -->
+        <button @click="next()" 
+                title="Next Slide"
+                class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-brand-green text-white hover:text-black border border-white/20 flex items-center justify-center backdrop-blur-md transition-all duration-200 shadow-xl group">
+            <i class="fa-solid fa-chevron-right text-sm md:text-base group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+        <!-- Carousel Bottom Slide Indicator Bar -->
+        <div class="absolute bottom-6 left-0 right-0 z-30 flex justify-center items-center space-x-2">
             <template x-for="(slide, index) in slides" :key="index">
-                <button @click="activeSlide = index" 
-                        class="h-1.5 rounded-full transition-all duration-300"
-                        :class="activeSlide === index ? 'w-7 bg-brand-green' : 'w-2 bg-white/50'"></button>
+                <button @click="current = index" 
+                        :title="`Slide ${index + 1}`"
+                        class="h-2 rounded-full transition-all duration-300 shadow-md"
+                        :class="current === index ? 'w-8 bg-brand-green' : 'w-2.5 bg-white/50 hover:bg-white'"></button>
             </template>
         </div>
 
-        <!-- HTMX Smart Filter Bar -->
-        <div class="bg-white/95 dark:bg-brand-card/95 backdrop-blur-xl p-4 md:p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-2xl max-w-5xl mx-auto text-left">
+    </div>
+</section>
+
+<!-- Filter Search Bar Section -->
+<section class="bg-slate-100 dark:bg-black py-8 border-b border-slate-200 dark:border-brand-border">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="bg-white dark:bg-brand-card p-4 md:p-6 rounded-2xl border border-slate-200 dark:border-brand-border shadow-xl max-w-5xl mx-auto">
             <form hx-get="{% url 'core:property_list' %}" 
                   hx-target="#property-grid" 
                   hx-trigger="change, keyup delay:300ms from:find input"
@@ -123,11 +199,11 @@
     </div>
 </section>
 
-<!-- Official Accreditation Bar -->
+<!-- Corporate Accreditation Bar -->
 <section class="bg-white dark:bg-black py-6 border-b border-slate-200 dark:border-brand-border">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-around items-center gap-6 text-center text-xs">
         
-        <!-- GREPA Feature -->
+        <!-- GREPA Red Badge -->
         <div class="flex items-center space-x-3 bg-slate-50 dark:bg-brand-card px-4 py-2.5 rounded-xl border border-slate-200 dark:border-brand-border shadow-sm">
             <div class="w-9 h-9 bg-red-600 rounded-lg flex items-center justify-center font-black text-white text-xs shadow-md">GREPA</div>
             <div class="text-left">
@@ -136,7 +212,7 @@
             </div>
         </div>
 
-        <!-- NAR Feature -->
+        <!-- NAR Blue Badge -->
         <div class="flex items-center space-x-3 bg-slate-50 dark:bg-brand-card px-4 py-2.5 rounded-xl border border-slate-200 dark:border-brand-border shadow-sm">
             <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white text-xs shadow-md">NAR</div>
             <div class="text-left">
