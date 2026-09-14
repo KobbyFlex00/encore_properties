@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Lime Green L-bracket Framing -->
+    <path d="M15 80 V20 H80" stroke="#22C55E" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+    <!-- Metallic Gold Roof -->
+    <path d="M28 52 L52 30 L76 52" stroke="#C5A059" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Metallic Gold Base House Frame -->
+    <path d="M36 50 V75 H78" stroke="#C5A059" stroke-width="6" stroke-linecap="square" fill="none"/>
+    <!-- 4 Window Panes -->
+    <rect x="46" y="55" width="4.5" height="4.5" fill="#C5A059"/>
+    <rect x="53" y="55" width="4.5" height="4.5" fill="#C5A059"/>
+    <rect x="46" y="62" width="4.5" height="4.5" fill="#C5A059"/>
+    <rect x="53" y="62" width="4.5" height="4.5" fill="#C5A059"/>
+</svg>
