@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Encore Property Group Ltd | Luxury Real Estate Ghana{% endblock %}</title>
 
-    <!-- Browser Favicon -->
-    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-    <link rel="alternate icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-    <link rel="apple-touch-icon" href="{% static 'favicon.svg' %}">
+    <!-- Multi-Platform Browser & Search Engine Favicons -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
 
     {% block opengraph %}
     <meta property="og:title" content="Encore Property Group Ltd - Luxury Real Estate Ghana">
@@ -168,7 +169,7 @@
         {% endblock %}
     </main>
 
-    <!-- Exclusive Floating Circular Action Buttons -->
+    <!-- Clean Floating Circular Action Buttons (No Duplicate Mobile Bottom Bar) -->
     <div class="fixed bottom-6 right-5 z-50 flex flex-col space-y-3">
         <!-- Floating WhatsApp Button -->
         <a href="https://wa.me/233598870757?text=Hello%20Encore%20Properties%2C%20I%20would%20like%20to%20make%20an%20inquiry." 
